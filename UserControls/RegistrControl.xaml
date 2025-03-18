@@ -19,8 +19,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
-                    <TextBlock x:Name="textLogin" Text="Логин" Style="{StaticResource textHint}"/>
-                    <TextBox x:Name="txtLogin" Style="{StaticResource textBox}"/>
+                    <TextBlock x:Name="textLogin" MouseDown="textLogin_MouseDown" Text="Логин" Style="{StaticResource textHint}"/>
+                    <TextBox x:Name="login" TextChanged="login_TextChanged" Style="{StaticResource textBox}"/>
                 </Grid>
             </Border>
 
@@ -31,8 +31,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="/Resources/lock.png" Height="20" />
-                    <TextBlock x:Name="textPassword" Text="Пароль" Style="{StaticResource textHint}"/>
-                    <PasswordBox x:Name="txtPassword" Style="{StaticResource textBox}"/>
+                    <TextBlock x:Name="textPassword" MouseDown="textPassword_MouseDown" Text="Пароль" Style="{StaticResource textHint}"/>
+                    <PasswordBox x:Name="password" PasswordChanged="password_PasswordChanged" Style="{StaticResource textBox}"/>
                 </Grid>
             </Border>
             
@@ -43,8 +43,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Image Source="/Resources/lock.png" Height="20" />
-                    <TextBlock x:Name="textPassword2" Text="Повторите пароль" Style="{StaticResource textHint}"/>
-                    <PasswordBox x:Name="txtPassword2" Style="{StaticResource textBox}"/>
+                    <TextBlock x:Name="textPassword2" MouseDown="textPassword2_MouseDown" Text="Повторите пароль" Style="{StaticResource textHint}"/>
+                    <PasswordBox x:Name="password2" PasswordChanged="password2_PasswordChanged" Style="{StaticResource textBox}"/>
                 </Grid>
             </Border>
 
