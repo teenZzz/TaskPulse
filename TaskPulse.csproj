@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\close.png" />
     <None Remove="Resources\key.png" />
     <None Remove="Resources\lock.png" />
   </ItemGroup>
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\close.png" />
     <Resource Include="Resources\key.png" />
     <Resource Include="Resources\lock.png" />
   </ItemGroup>
