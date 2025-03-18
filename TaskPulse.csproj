@@ -8,4 +8,19 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\key.png" />
+    <None Remove="Resources\lock.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\key.png" />
+    <Resource Include="Resources\lock.png" />
+  </ItemGroup>
+
 </Project>

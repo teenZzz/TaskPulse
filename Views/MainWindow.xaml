@@ -3,10 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskPulse"
+        xmlns:local="clr-namespace:TaskPulse.Views"
+        xmlns:vm="clr-namespace:TaskPulse.ViewModels"
+        xmlns:controls="clr-namespace:TaskPulse.UserControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"     
+        Title="TaskPulse" Height="800" Width="1280" Background="Transparent">
+    <Window.DataContext>
+        <vm:AuthWindowViewModel/>
+    </Window.DataContext>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+        <Border CornerRadius="10 0 0 10" Background="#00A19A">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="TaskPulse" Style="{StaticResource titleText}"/>
+                <Button Content="Авторизоваться" Command="{Binding AuthCommand}" Style="{StaticResource button}" Margin="0 40 0 20"/>
+                <Button Content="Зарегистрироваться" Command="{Binding RegistrCommand}" Style="{StaticResource button}"/>
+            </StackPanel>
+        </Border>
+        
+        <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0">
+            <Grid>
+                <controls:AuthControl Visibility="{Binding AuthVisibility}"/>
+                <controls:RegistrControl Visibility="{Binding RegistrVisibility}"/>
+            </Grid>
+        </Border>
 
     </Grid>
 </Window>
