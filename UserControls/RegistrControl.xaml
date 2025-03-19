@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TaskPulse.UserControls"
-             mc:Ignorable="d" 
->
-    <Grid>
+             xmlns:vm="clr-namespace:TaskPulse.ViewModels"
+             xmlns:local="clr-namespace:TaskPulse.UserControls"           
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <vm:RegistControlViewModel/>
+    </UserControl.DataContext>
+    <Grid >
         <StackPanel VerticalAlignment="Center">
             <TextBlock Text="Регистрация" Style="{StaticResource titleText}" Foreground="#3AB19B"/>
 
@@ -20,7 +23,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
                     <TextBlock x:Name="textLogin" MouseDown="textLogin_MouseDown" Text="Логин" Style="{StaticResource textHint}"/>
-                    <TextBox x:Name="login" TextChanged="login_TextChanged" Style="{StaticResource textBox}"/>
+                    <TextBox x:Name="login" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" TextChanged="login_TextChanged" Style="{StaticResource textBox}"/>
                 </Grid>
             </Border>
 
@@ -48,7 +51,7 @@
                 </Grid>
             </Border>
 
-            <Button Content="Войти" Style="{StaticResource mainbutton}"/>
+            <Button Content="Войти" Command="{Binding RegisterCommand}" Style="{StaticResource mainbutton}"/>
         </StackPanel>
     </Grid>
 </UserControl>

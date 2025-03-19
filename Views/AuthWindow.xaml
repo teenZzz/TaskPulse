@@ -31,10 +31,7 @@
         </Border>
 
         <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0">
-            <Grid>
-                <controls:AuthControl Visibility="{Binding AuthVisibility}"/>
-                <controls:RegistrControl Visibility="{Binding RegistrVisibility}"/>
-            </Grid>
+            <ContentControl x:Name="AuthContentControl" Content="{Binding CurrentView}"/>
         </Border>
 
     </Grid>
