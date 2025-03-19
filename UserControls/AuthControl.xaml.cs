@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaskPulse.ViewModels;
 
 namespace TaskPulse.UserControls
 {
@@ -56,6 +57,11 @@ namespace TaskPulse.UserControls
             else
             {
                 textPassword.Visibility = Visibility.Visible;
+            }
+
+            if (DataContext is AuthControlViewModel vm)
+            {
+                vm.Password = ((PasswordBox)sender).Password;
             }
         }
 
