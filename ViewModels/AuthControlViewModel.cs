@@ -41,8 +41,36 @@ namespace TaskPulse.ViewModels
         public ICommand AuthCommand { get; }
         private void ExecuteAuth(object parameter)
         {
-            // Логика регистрации
-            MessageBox.Show($"{Password}, {Username}");
+            // Проверяем, что поля не пустые
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Проверяем, существует ли пользователь с таким именем
+            bool userExists = DataBaseHelper.UserExists(Username);
+            if (!userExists)
+            {
+                MessageBox.Show("Пользователь с таким именем не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Получаем хэшированный пароль из базы данных
+            string storedHashedPassword = DataBaseHelper.GetHashedPassword(Username);
+
+            // Сравниваем введенный пароль с хэшированным паролем из базы данных
+            bool passwordMatch = DataBaseHelper.VerifyPassword(Password, storedHashedPassword);
+
+            if (!passwordMatch)
+            {
+                MessageBox.Show("Неверный пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Если логин успешный
+            MessageBox.Show("Авторизация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         private bool CanExecuteAuth()

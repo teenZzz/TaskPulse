@@ -18,7 +18,7 @@ namespace TaskPulse
             // Привязываем все вью и вью-модели через статический класс
             var authWindow = new AuthWindow();
             authWindow.DataContext = ViewModelHelper.AuthWindowViewModel;
-            
+            DataBaseHelper.InitializeDatabase();
         }
     }
 

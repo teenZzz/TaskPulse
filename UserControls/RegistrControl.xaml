@@ -51,7 +51,7 @@
                 </Grid>
             </Border>
 
-            <Button Content="Войти" Command="{Binding RegisterCommand}" Style="{StaticResource mainbutton}"/>
+            <Button Content="Зарегистрироваться" Command="{Binding RegisterCommand}" Style="{StaticResource mainbutton}"/>
         </StackPanel>
     </Grid>
 </UserControl>
