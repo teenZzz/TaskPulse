@@ -11,13 +11,17 @@ namespace TaskPulse
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // Привязываем все вью и вью-модели через статический класс
-            var authWindow = new AuthWindow();
-            authWindow.DataContext = ViewModelHelper.AuthWindowViewModel;
+            // Теперь создаем окно и привязываем DataContext
+            ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+
             DataBaseHelper.InitializeDatabase();
         }
     }

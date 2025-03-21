@@ -15,7 +15,7 @@ using TaskPulse.Models;
 
 namespace TaskPulse.ViewModels
 {
-    public class RegistControlViewModel : INotifyPropertyChanged
+    public class RegistControlViewModel : ViewModelBase
     {
         private AuthModel _authModel = new AuthModel();
         private string _confirmPassword;
@@ -97,7 +97,7 @@ namespace TaskPulse.ViewModels
             try
             {
                 DataBaseHelper.AddUser(Username, Password);
-                MessageBox.Show("Регистрация прошла успешно!\nМожете перейти на вкладку авторизации.", "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);              
+                ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
             }
             catch (Exception ex)
             {
@@ -108,13 +108,6 @@ namespace TaskPulse.ViewModels
         private bool CanExecuteRegister()
         {
             return true;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

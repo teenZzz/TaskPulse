@@ -12,7 +12,7 @@ using TaskPulse.UserControls;
 
 namespace TaskPulse.ViewModels
 {
-    public class AuthWindowViewModel : INotifyPropertyChanged
+    public class AuthWindowViewModel : ViewModelBase
     {
         private RegistrControl _registrControl = new RegistrControl();
         private AuthControl _authControl = new AuthControl();
@@ -68,15 +68,6 @@ namespace TaskPulse.ViewModels
         {
             // Для примера регистрация всегда доступна
             return true;
-        }
-
-        // Реализуем интерфейс INotifyPropertyChanged для обновления UI
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Метод для уведомления об изменении свойства
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

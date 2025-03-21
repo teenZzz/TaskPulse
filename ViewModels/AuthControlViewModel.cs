@@ -12,7 +12,7 @@ using TaskPulse.Classes;
 
 namespace TaskPulse.ViewModels
 {
-    public class AuthControlViewModel : INotifyPropertyChanged
+    public class AuthControlViewModel : ViewModelBase
     {
         private AuthModel _authModel = new AuthModel();
         public AuthControlViewModel() 
@@ -69,20 +69,12 @@ namespace TaskPulse.ViewModels
             }
 
             // Если логин успешный
-            MessageBox.Show("Авторизация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
         }
 
         private bool CanExecuteAuth()
         {
             return true;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }      
     }
 }
