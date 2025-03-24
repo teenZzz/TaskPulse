@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\account.png" />
     <None Remove="Resources\close.png" />
+    <None Remove="Resources\dashboard.png" />
     <None Remove="Resources\key.png" />
     <None Remove="Resources\lock.png" />
+    <None Remove="Resources\projects.png" />
+    <None Remove="Resources\tasks.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,9 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\account.png" />
     <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\dashboard.png" />
     <Resource Include="Resources\key.png" />
     <Resource Include="Resources\lock.png" />
+    <Resource Include="Resources\projects.png" />
+    <Resource Include="Resources\tasks.png" />
   </ItemGroup>
 
 </Project>

@@ -90,7 +90,7 @@
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Width" Value="200"/>
             <Setter Property="Margin" Value="0 20 0 0"/>
-            <Setter Property="Background" Value="#3AB19B"/>
+            <Setter Property="Background" Value="#00A19A"/>
             <Setter Property="Foreground" Value="#FDFEFE"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Template">
@@ -159,14 +159,15 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="dopbutton" TargetType="Button">
-            <Setter Property="Background" Value="#3AB19B"/>
-            <Setter Property="Foreground" Value="#FDFEFE"/>
+        <Style x:Key="navigationButtonActive" TargetType="Button">
+            <Setter Property="Background" Value="#00A19A"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="MinHeight" Value="45"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="1" BorderBrush="#49B7A3">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="16" BorderThickness="1" BorderBrush="#49B7A3">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -175,11 +176,34 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#339685"/>
-                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
                 <Trigger Property="IsMouseCaptured" Value="True">
                     <Setter Property="Background" Value="#2d7a6c"/>
-                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="navigationButtonDefault" TargetType="Button">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="MinHeight" Value="45"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="16">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F6F6F6"/>
+
+                </Trigger>
+                <Trigger Property="IsMouseCaptured" Value="True">
+                    <Setter Property="Background" Value="#EEEEEE"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
