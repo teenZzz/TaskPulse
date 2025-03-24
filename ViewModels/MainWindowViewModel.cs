@@ -16,7 +16,7 @@ namespace TaskPulse.ViewModels
         public MainWindowViewModel()
         {
             DashBoardLoadCommand = new RelayCommand(ExecuteDashBoardLoad, CanExecuteDashBoardLoad);
-
+            LogoutCommand = new RelayCommand(ExecuteLogout, CanExecuteLogout);
         }
 
         private Uri dashboardButtonIcon = new Uri("pack://application:,,,/Resources/dashboard.png");
@@ -63,6 +63,17 @@ namespace TaskPulse.ViewModels
             }
         }
 
+        private Uri logoutButtonIcon = new Uri("pack://application:,,,/Resources/logout.png");
+        public Uri LogoutButtonIcon
+        {
+            get => logoutButtonIcon;
+            set
+            {
+                logoutButtonIcon = value;
+                OnPropertyChanged();
+            }
+        }
+
         private object _currentView;
         public object CurrentView
         {
@@ -77,7 +88,7 @@ namespace TaskPulse.ViewModels
             }
         }
 
-
+        public ICommand LogoutCommand { get; }
         public ICommand DashBoardLoadCommand { get; }
         private void ExecuteDashBoardLoad(object parameter)
         {
@@ -86,6 +97,17 @@ namespace TaskPulse.ViewModels
 
         // Условие, когда команда "Авторизоваться" может быть выполнена
         private bool CanExecuteDashBoardLoad()
+        {
+            // Для примера логика авторизации всегда доступна
+            return true;
+        }
+        private void ExecuteLogout(object parameter)
+        {
+            ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+        }
+
+        // Условие, когда команда "Авторизоваться" может быть выполнена
+        private bool CanExecuteLogout()
         {
             // Для примера логика авторизации всегда доступна
             return true;

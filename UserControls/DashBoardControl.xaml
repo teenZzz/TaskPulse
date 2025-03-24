@@ -6,15 +6,22 @@
              xmlns:vm="clr-namespace:TaskPulse.ViewModels"
              xmlns:local="clr-namespace:TaskPulse.UserControls"
              mc:Ignorable="d"
-             Background="Gray"
+             Background="#F6F6F6"
              d:DesignHeight="1080" d:DesignWidth="1500">
 
     <Grid d:DataContext="{d:DesignInstance Type=vm:DashBoardViewModel, IsDesignTimeCreatable=True}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding Texs}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MaxHeight="100" MinHeight="100"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#FFFFFF" Panel.ZIndex="1">
+            <Border.Effect>
+                <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+                <TextBlock Text="Dasboard: " FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="MyTask" FontSize="24" FontWeight="Bold"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

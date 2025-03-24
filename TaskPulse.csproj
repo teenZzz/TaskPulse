@@ -16,6 +16,8 @@
     <None Remove="Resources\dashboard_white.png" />
     <None Remove="Resources\key.png" />
     <None Remove="Resources\lock.png" />
+    <None Remove="Resources\logout.png" />
+    <None Remove="Resources\logout_white.png" />
     <None Remove="Resources\projects.png" />
     <None Remove="Resources\projects_white.png" />
     <None Remove="Resources\tasks.png" />
@@ -35,6 +37,8 @@
     <Resource Include="Resources\dashboard_white.png" />
     <Resource Include="Resources\key.png" />
     <Resource Include="Resources\lock.png" />
+    <Resource Include="Resources\logout.png" />
+    <Resource Include="Resources\logout_white.png" />
     <Resource Include="Resources\projects.png" />
     <Resource Include="Resources\projects_white.png" />
     <Resource Include="Resources\tasks.png" />
