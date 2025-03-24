@@ -8,15 +8,17 @@
         xmlns:vm="clr-namespace:TaskPulse.ViewModels"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        UseLayoutRounding="True"
+        Background="Transparent"
         MinHeight="800"
-        MinWidth="800"
+        MinWidth="800"      
         Title="MainWindow" Height="1080" Width="1920">
-    <Grid d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=True}">
+    <Grid d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel, IsDesignTimeCreatable=True}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MaxWidth="300"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Background="#FFFFFF" Panel.ZIndex="1">
+        <Border Grid.Column="0" Background="#FFFFFF" Panel.ZIndex="1" CornerRadius="10 0 0 10">
             <Border.Effect>
                 <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
             </Border.Effect>
@@ -30,10 +32,10 @@
                     <Border.Effect>
                         <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
                     </Border.Effect>
-                    <Button Command="{Binding BackCommand}" Style="{StaticResource navigationButtonDefault}" >
+                    <Button Command="{Binding DashBoardLoadCommand}" Style="{StaticResource navigationButtonDefault}" >
                         <StackPanel Orientation="Horizontal" Width="250" Height="45">
-                            <Image Source="{Binding DashBoardButtonIcon}" Width="30" Height="30" VerticalAlignment="Center" Margin="5 5 5 10"/>
-                            <TextBlock Text="Dashboard" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 10"/>
+                            <Image Source="{Binding DashBoardButtonIcon}" Width="24" Height="24" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Dashboard" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
                         </StackPanel>
                     </Button>
                 </Border>
@@ -44,8 +46,8 @@
                     </Border.Effect>
                     <Button Command="{Binding BackCommand}" Style="{StaticResource navigationButtonDefault}" >
                         <StackPanel Orientation="Horizontal" Width="250" Height="45">
-                            <Image Source="{Binding TasksButtonIcon}" Width="30" Height="30" VerticalAlignment="Center" Margin="5 5 5 10"/>
-                            <TextBlock Text="Tasks" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 10"/>
+                            <Image Source="{Binding TasksButtonIcon}" Width="24" Height="24" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Tasks" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
                         </StackPanel>
                     </Button>
                 </Border>
@@ -56,8 +58,8 @@
                     </Border.Effect>
                     <Button Command="{Binding BackCommand}" Style="{StaticResource navigationButtonDefault}" >
                         <StackPanel Orientation="Horizontal" Width="250" Height="45">
-                            <Image Source="{Binding ProjectsButtonIcon}" Width="30" Height="30" VerticalAlignment="Center" Margin="5 5 5 10"/>
-                            <TextBlock Text="Projects" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 10"/>
+                            <Image Source="{Binding ProjectsButtonIcon}" Width="24" Height="24" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Projects" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
                         </StackPanel>
                     </Button>
                 </Border>
@@ -68,16 +70,16 @@
                     </Border.Effect>
                     <Button Command="{Binding BackCommand}" Style="{StaticResource navigationButtonDefault}" >
                         <StackPanel Orientation="Horizontal" Width="250" Height="45">
-                            <Image Source="{Binding AccountButtonIcon}" Width="30" Height="30" VerticalAlignment="Center" Margin="5 5 5 10"/>
-                            <TextBlock Text="Account" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 10"/>
+                            <Image Source="{Binding AccountButtonIcon}" Width="24" Height="24" VerticalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="Account" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
                         </StackPanel>
                     </Button>
                 </Border>
 
             </StackPanel>
         </Border>
-        <Border Background="#F6F6F6" Grid.Column="1">
-            <ContentControl Content="{}"/>
+        <Border Background="#F6F6F6" Grid.Column="1" CornerRadius="0 10 10 0">
+            <ContentControl Margin="50" Content="{Binding CurrentView}"/>
         </Border>
 
     </Grid>

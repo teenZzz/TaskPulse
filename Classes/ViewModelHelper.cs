@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TaskPulse.ViewModels;
 using TaskPulse.Views;
 using TaskPulse.Models;
+using TaskPulse.UserControls;
 
 namespace TaskPulse.Classes
 {
@@ -17,7 +18,13 @@ namespace TaskPulse.Classes
         public static AuthControlViewModel AuthControlViewModel { get; } = new();
         public static RegistControlViewModel RegistControlViewModel { get; } = new();
         public static MainWindowViewModel MainWindowViewModel { get; } = new();
+        public static DashBoardViewModel DashBoardViewModel { get; } = new();
         public static NavigationService NavigationService { get; } = new();
+
+        //создание контролов
+        public static RegistrControl RegistrControl = new () { DataContext = RegistControlViewModel };
+        public static AuthControl AuthControl = new () { DataContext = AuthControlViewModel };
+        public static DashBoardControl DashBoardControl;
 
         static ViewModelHelper()
         {
@@ -26,7 +33,12 @@ namespace TaskPulse.Classes
             AuthControlViewModel = new();
             RegistControlViewModel = new();
             MainWindowViewModel = new();
-            NavigationService = new NavigationService();
+            NavigationService = new ();
+            RegistrControl = new RegistrControl() {DataContext = RegistControlViewModel };
+            AuthControl = new AuthControl() { DataContext = AuthControlViewModel};
+            DashBoardControl = new DashBoardControl() { DataContext = DashBoardViewModel};
+            DashBoardViewModel = new();
+
             // Если вдруг понадобится что-то сложное при старте
             Debug.Print("ViewModelHelper инициализирован");
         }

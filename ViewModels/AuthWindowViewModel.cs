@@ -14,13 +14,12 @@ namespace TaskPulse.ViewModels
 {
     public class AuthWindowViewModel : ViewModelBase
     {
-        private RegistrControl _registrControl = new RegistrControl();
-        private AuthControl _authControl = new AuthControl();
+        
         public AuthWindowViewModel()
         {
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
             RegistrCommand = new RelayCommand(ExecuteRegistr, CanExecuteRegistr);
-            CurrentView = _authControl;
+            CurrentView = ViewModelHelper.AuthControl;
 
         }
 
@@ -46,14 +45,14 @@ namespace TaskPulse.ViewModels
         private void ExecuteAuth(object parameter)
         {
             // Логика для авторизации
-            CurrentView = _authControl;
+            CurrentView = ViewModelHelper.AuthControl;
         }
 
         // Логика для регистрации
         private void ExecuteRegistr(object parameter)
         {
             // Логика для регистрации
-            CurrentView = _registrControl;
+            CurrentView = ViewModelHelper.RegistrControl;
         }
 
         // Условие, когда команда "Авторизоваться" может быть выполнена

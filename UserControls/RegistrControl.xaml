@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:TaskPulse.ViewModels"
              xmlns:local="clr-namespace:TaskPulse.UserControls"           
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <vm:RegistControlViewModel/>
-    </UserControl.DataContext>
     <Grid >
         <StackPanel VerticalAlignment="Center">
             <TextBlock Text="Регистрация" Style="{StaticResource titleText}" Foreground="#3AB19B"/>

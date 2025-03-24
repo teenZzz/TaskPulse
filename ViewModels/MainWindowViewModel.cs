@@ -15,7 +15,7 @@ namespace TaskPulse.ViewModels
     {
         public MainWindowViewModel()
         {
-            BackCommand = new RelayCommand(ExecuteBack, CanExecuteBack);
+            DashBoardLoadCommand = new RelayCommand(ExecuteDashBoardLoad, CanExecuteDashBoardLoad);
 
         }
 
@@ -23,33 +23,69 @@ namespace TaskPulse.ViewModels
         public Uri DashBoardButtonIcon
         {
             get => dashboardButtonIcon;
+            set
+            {
+                dashboardButtonIcon = value;
+                OnPropertyChanged();
+            }
         }
+
         private Uri tasksButtonIcon = new Uri("pack://application:,,,/Resources/tasks.png");
         public Uri TasksButtonIcon
         {
             get => tasksButtonIcon;
+            set
+            {
+                tasksButtonIcon = value;
+                OnPropertyChanged();
+            }
         }
+
         private Uri projectsButtonIcon = new Uri("pack://application:,,,/Resources/projects.png");
         public Uri ProjectsButtonIcon
         {
             get => projectsButtonIcon;
+            set
+            {
+                projectsButtonIcon = value;
+                OnPropertyChanged();
+            }
         }
+
         private Uri accountButtonIcon = new Uri("pack://application:,,,/Resources/account.png");
         public Uri AccountButtonIcon
         {
             get => accountButtonIcon;
+            set
+            {
+                accountButtonIcon = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set
+            {
+                if (_currentView != value)
+                {
+                    _currentView = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
 
-        public ICommand BackCommand { get; }
-        private void ExecuteBack(object parameter)
+        public ICommand DashBoardLoadCommand { get; }
+        private void ExecuteDashBoardLoad(object parameter)
         {
-            // Логика для авторизации
-            ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+            CurrentView = ViewModelHelper.DashBoardControl;
         }
 
         // Условие, когда команда "Авторизоваться" может быть выполнена
-        private bool CanExecuteBack()
+        private bool CanExecuteDashBoardLoad()
         {
             // Для примера логика авторизации всегда доступна
             return true;

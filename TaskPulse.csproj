@@ -10,12 +10,16 @@
 
   <ItemGroup>
     <None Remove="Resources\account.png" />
+    <None Remove="Resources\account_white.png" />
     <None Remove="Resources\close.png" />
     <None Remove="Resources\dashboard.png" />
+    <None Remove="Resources\dashboard_white.png" />
     <None Remove="Resources\key.png" />
     <None Remove="Resources\lock.png" />
     <None Remove="Resources\projects.png" />
+    <None Remove="Resources\projects_white.png" />
     <None Remove="Resources\tasks.png" />
+    <None Remove="Resources\tasks_white.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,12 +29,16 @@
 
   <ItemGroup>
     <Resource Include="Resources\account.png" />
+    <Resource Include="Resources\account_white.png" />
     <Resource Include="Resources\close.png" />
     <Resource Include="Resources\dashboard.png" />
+    <Resource Include="Resources\dashboard_white.png" />
     <Resource Include="Resources\key.png" />
     <Resource Include="Resources\lock.png" />
     <Resource Include="Resources\projects.png" />
+    <Resource Include="Resources\projects_white.png" />
     <Resource Include="Resources\tasks.png" />
+    <Resource Include="Resources\tasks_white.png" />
   </ItemGroup>
 
 </Project>
