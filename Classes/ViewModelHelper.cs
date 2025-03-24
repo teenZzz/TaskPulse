@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskPulse.ViewModels;
 using TaskPulse.Views;
+using TaskPulse.Models;
 
 namespace TaskPulse.Classes
 {
     public static class ViewModelHelper
     {
+        public static AuthModel AuthModel { get; set; } = new();
         public static AuthWindowViewModel AuthWindowViewModel { get; } = new();
         public static AuthControlViewModel AuthControlViewModel { get; } = new();
         public static RegistControlViewModel RegistControlViewModel { get; } = new();
@@ -19,6 +21,7 @@ namespace TaskPulse.Classes
 
         static ViewModelHelper()
         {
+            AuthModel = new AuthModel();
             AuthWindowViewModel = new();
             AuthControlViewModel = new();
             RegistControlViewModel = new();

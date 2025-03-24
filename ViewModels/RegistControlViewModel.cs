@@ -13,11 +13,11 @@ using System.Windows.Input;
 using TaskPulse.Classes;
 using TaskPulse.Models;
 
+
 namespace TaskPulse.ViewModels
 {
     public class RegistControlViewModel : ViewModelBase
-    {
-        private AuthModel _authModel = new AuthModel();
+    {      
         private string _confirmPassword;
         public RegistControlViewModel() 
         {
@@ -26,20 +26,20 @@ namespace TaskPulse.ViewModels
         
         public string Username
         {
-            get => _authModel.Username;
+            get => ViewModelHelper.AuthModel.Username;
             set
             {
-                _authModel.Username = value;
+                ViewModelHelper.AuthModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => _authModel.Password;
+            get => ViewModelHelper.AuthModel.Password;
             set
             {
-                _authModel.Password = value;
+                ViewModelHelper.AuthModel.Password = value;
                 OnPropertyChanged();
             }
         }

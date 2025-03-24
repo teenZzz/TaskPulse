@@ -14,27 +14,26 @@ namespace TaskPulse.ViewModels
 {
     public class AuthControlViewModel : ViewModelBase
     {
-        private AuthModel _authModel = new AuthModel();
         public AuthControlViewModel() 
         {
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
         }
         public string Username
         {
-            get => _authModel.Username;
+            get => ViewModelHelper.AuthModel.Username;
             set
             {
-                _authModel.Username = value;
+                ViewModelHelper.AuthModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => _authModel.Password;
+            get => ViewModelHelper.AuthModel.Password;
             set
             {
-                _authModel.Password = value;
+                ViewModelHelper.AuthModel.Password = value;
                 OnPropertyChanged();
             }
         }
