@@ -37,7 +37,7 @@
                         <Button Command="{Binding DashBoardLoadCommand}" Style="{StaticResource navigationButtonDefault}" >
                             <StackPanel Orientation="Horizontal" Width="250" Height="45">
                                 <Image Source="{Binding DashBoardButtonIcon}" Width="24" Height="24" VerticalAlignment="Center" Margin="5"/>
-                                <TextBlock Text="Dashboard" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
+                                <TextBlock Text="Dashboard" Foreground="{Binding }" FontSize="20" FontWeight="Normal" VerticalAlignment="Center" Margin="5 5 5 8"/>
                             </StackPanel>
                         </Button>
                     </Border>

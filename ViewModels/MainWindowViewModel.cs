@@ -90,17 +90,25 @@ namespace TaskPulse.ViewModels
 
         public ICommand LogoutCommand { get; }
         public ICommand DashBoardLoadCommand { get; }
+
+        //Вызов Dashboard
         private void ExecuteDashBoardLoad(object parameter)
         {
             CurrentView = ViewModelHelper.DashBoardControl;
         }
 
-        // Условие, когда команда "Авторизоваться" может быть выполнена
+        // Условие вывова Dashboard
         private bool CanExecuteDashBoardLoad()
         {
-            // Для примера логика авторизации всегда доступна
-            return true;
+            if (CurrentView != ViewModelHelper.DashBoardControl)
+                return true;
+            return false;
         }
+
+
+
+
+
         private void ExecuteLogout(object parameter)
         {
             ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
