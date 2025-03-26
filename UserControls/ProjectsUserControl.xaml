@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="TaskPulse.UserControls.ProjectsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:TaskPulse.ViewModels"
+             xmlns:local="clr-namespace:TaskPulse.UserControls"
+             mc:Ignorable="d"
+             Background="#F6F6F6"
+             d:DesignHeight="1080" d:DesignWidth="1500">
+
+    <Grid d:DataContext="{d:DesignInstance Type=vm:ProjectsViewModel, IsDesignTimeCreatable=True}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MaxHeight="100" MinHeight="100"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Border Background="#FFFFFF" Panel.ZIndex="1">
+            <Border.Effect>
+                <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+                <TextBlock Text="Project: " FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="MyProject" FontSize="24" FontWeight="Bold"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

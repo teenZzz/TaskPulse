@@ -4,8 +4,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TaskPulse.ButtonManager;
 using TaskPulse.Classes;
 using TaskPulse.UserControls;
 
@@ -13,53 +16,35 @@ namespace TaskPulse.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public BaseButtonManager ButtonDashboard { get; set; } =new ButtonDashboard();
+        public BaseButtonManager ButtonTasks { get; set; } = new ButtonTasks();
+        public BaseButtonManager ButtonProjects { get; set; } = new ButtonProjects();
+        public BaseButtonManager ButtonAccount { get; set; } = new ButtonAccount();
         public MainWindowViewModel()
         {
             DashBoardLoadCommand = new RelayCommand(ExecuteDashBoardLoad, CanExecuteDashBoardLoad);
+            TasksLoadCommand = new RelayCommand(ExecuteTasksBoardLoad, CanExecuteTasksBoardLoad);
+            ProjectsLoadCommand = new RelayCommand(ExecuteProjectsLoad, CanExecuteProjectsLoad);
+            AccountLoadCommand = new RelayCommand(ExecuteAccountLoad,CanExecuteAccountLoad);
             LogoutCommand = new RelayCommand(ExecuteLogout, CanExecuteLogout);
-        }
+        }      
 
-        private Uri dashboardButtonIcon = new Uri("pack://application:,,,/Resources/dashboard.png");
-        public Uri DashBoardButtonIcon
+        private BaseButtonManager _activeButton;
+        public BaseButtonManager ActiveButton
         {
-            get => dashboardButtonIcon;
+            get => _activeButton;
             set
             {
-                dashboardButtonIcon = value;
-                OnPropertyChanged();
-            }
-        }
+                if (_activeButton != value)
+                {
+                    // Деактивируем текущую активную кнопку
+                    DeactivateButton(_activeButton);
 
-        private Uri tasksButtonIcon = new Uri("pack://application:,,,/Resources/tasks.png");
-        public Uri TasksButtonIcon
-        {
-            get => tasksButtonIcon;
-            set
-            {
-                tasksButtonIcon = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Uri projectsButtonIcon = new Uri("pack://application:,,,/Resources/projects.png");
-        public Uri ProjectsButtonIcon
-        {
-            get => projectsButtonIcon;
-            set
-            {
-                projectsButtonIcon = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Uri accountButtonIcon = new Uri("pack://application:,,,/Resources/account.png");
-        public Uri AccountButtonIcon
-        {
-            get => accountButtonIcon;
-            set
-            {
-                accountButtonIcon = value;
-                OnPropertyChanged();
+                    // Активируем новую кнопку
+                    _activeButton = value;
+                    ActivateButton(_activeButton);
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -90,11 +75,44 @@ namespace TaskPulse.ViewModels
 
         public ICommand LogoutCommand { get; }
         public ICommand DashBoardLoadCommand { get; }
+        public ICommand TasksLoadCommand { get; }
+        public ICommand ProjectsLoadCommand { get; }
+        public ICommand AccountLoadCommand { get; }
+
+
+        private void ActivateButton(BaseButtonManager button)
+        {
+            if (button != null)
+            {
+                // Активируем стиль и устанавливаем цвет
+                button.CurrentStyle = (Style)Application.Current.Resources["navigationButtonActive"]; // Стиль активной кнопки
+                button.ForegroundColor = Brushes.White; // Пример: изменяем цвет на белый
+
+                // Устанавливаем активную иконку с добавлением "_white"
+                string activeIconPath = button.ButtonIcon.ToString().Replace(".png", "_white.png");
+                button.ButtonIcon = new Uri(activeIconPath); // Иконка для активной кнопки
+            }
+        }
+
+        private void DeactivateButton(BaseButtonManager button)
+        {
+            if (button != null)
+            {
+                // Возвращаем дефолтный стиль и цвет
+                button.CurrentStyle = (Style)Application.Current.Resources["navigationButtonDefault"]; // Дефолтный стиль кнопки
+                button.ForegroundColor = Brushes.Black; // Дефолтный цвет
+
+                // Устанавливаем дефолтную иконку (без "_white")
+                string defaultIconPath = button.ButtonIcon.ToString().Replace("_white.png", ".png");
+                button.ButtonIcon = new Uri(defaultIconPath); // Дефолтная иконка
+            }
+        }
 
         //Вызов Dashboard
         private void ExecuteDashBoardLoad(object parameter)
         {
             CurrentView = ViewModelHelper.DashBoardControl;
+            ActiveButton = ButtonDashboard;
         }
 
         // Условие вывова Dashboard
@@ -105,6 +123,50 @@ namespace TaskPulse.ViewModels
             return false;
         }
 
+        //Вызов Tasks
+        private void ExecuteTasksBoardLoad(object parameter)
+        {
+            CurrentView = ViewModelHelper.TasksUserControl;
+            ActiveButton = ButtonTasks;
+        }
+
+        // Условие вывова Tasks
+        private bool CanExecuteTasksBoardLoad()
+        {
+            if (CurrentView != ViewModelHelper.TasksUserControl)
+                return true;
+            return false;
+        }
+
+        //Вызов Projects
+        private void ExecuteProjectsLoad(object parameter)
+        {
+            CurrentView = ViewModelHelper.ProjectsUserControl;
+            ActiveButton = ButtonProjects;
+        }
+
+        // Условие вывова Projects
+        private bool CanExecuteProjectsLoad()
+        {
+            if (CurrentView != ViewModelHelper.ProjectsUserControl)
+                return true;
+            return false;
+        }
+
+        //Вызов Account
+        private void ExecuteAccountLoad(object parameter)
+        {
+            CurrentView = ViewModelHelper.AccountUserControl;
+            ActiveButton = ButtonAccount;
+        }
+
+        // Условие вывова Dashboard
+        private bool CanExecuteAccountLoad()
+        {
+            if (CurrentView != ViewModelHelper.AccountUserControl)
+                return true;
+            return false;
+        }
 
 
 
