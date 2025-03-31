@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TaskPulse.UserControls.SwimlaneControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskPulse.UserControls"
+             mc:Ignorable="d" 
+             Background="#F6F6F6"
+             d:DesignHeight="500" d:DesignWidth="300">
+    <Grid>
+        <Border MinWidth="200" MinHeight="500" BorderBrush="DarkOliveGreen" BorderThickness="2">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=Title}" HorizontalAlignment="Center" FontSize="16" FontWeight="Normal"/>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                    <ListView>
+                        
+                    </ListView>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

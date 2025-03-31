@@ -90,6 +90,23 @@ namespace TaskPulse.Classes
                 }
             }
         }
+        public static List<string> GetAllTaskStatuses()
+        {
+            List<string> statuses = new List<string>();
+            using (var connection = GetConnection())
+            {
+                var query = "SELECT Name FROM TaskStatuses";
+                using (var command = new SQLiteCommand(query, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        statuses.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return statuses;
+        }
 
         //Метод доабвления проекта
         public static void AddProject(int userId, string projectName)
