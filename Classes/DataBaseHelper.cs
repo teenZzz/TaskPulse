@@ -5,12 +5,14 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.IO;
 
 namespace TaskPulse.Classes
 {
     public class DataBaseHelper
     {
-        private const string ConnectionString = "Data Source=TaskPulse.db;Version=3;";
+        private static readonly string DbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TaskPulse.db");
+        private static readonly string ConnectionString = $"Data Source={DbPath};Version=3;";
 
         private static SQLiteConnection GetConnection()
         {
