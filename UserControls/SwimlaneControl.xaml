@@ -8,7 +8,7 @@
              Background="#F6F6F6"
              d:DesignHeight="500" d:DesignWidth="300">
     <Grid>
-        <Border MinWidth="200" MinHeight="500" BorderBrush="DarkOliveGreen" BorderThickness="2">
+        <Border MinWidth="200" MinHeight="500" BorderBrush="Black" BorderThickness="1">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=Title}" HorizontalAlignment="Center" FontSize="16" FontWeight="Normal"/>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
