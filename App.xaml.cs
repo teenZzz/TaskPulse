@@ -19,8 +19,15 @@ namespace TaskPulse
         {
             base.OnStartup(e);
 
-            // Теперь создаем окно и привязываем DataContext
-            ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+            int? savedUserId = DataBaseHelper.GetSavedUserSession();
+            if (savedUserId.HasValue)
+            {
+                ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
+            }
+            else
+            {
+                ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+            }
 
             DataBaseHelper.InitializeDatabase();
         }

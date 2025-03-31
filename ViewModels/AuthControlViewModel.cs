@@ -68,6 +68,8 @@ namespace TaskPulse.ViewModels
             }
 
             // Если логин успешный
+            int userId = DataBaseHelper.GetUserIdFromLogin(Username);
+            DataBaseHelper.SaveUserSession(userId);           
             ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
         }
 

@@ -97,6 +97,8 @@ namespace TaskPulse.ViewModels
             try
             {
                 DataBaseHelper.AddUser(Username, Password);
+                int userId = DataBaseHelper.GetUserIdFromLogin(Username);
+                DataBaseHelper.SaveUserSession(userId);
                 ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
             }
             catch (Exception ex)

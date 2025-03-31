@@ -12,7 +12,6 @@ namespace TaskPulse.Classes
     {
         private const string ConnectionString = "Data Source=TaskPulse.db;Version=3;";
 
-        // Метод для подключения к базе данных
         private static SQLiteConnection GetConnection()
         {
             var connection = new SQLiteConnection(ConnectionString);
@@ -20,26 +19,127 @@ namespace TaskPulse.Classes
             return connection;
         }
 
-        // Метод для инициализации базы данных (создание таблицы Users)
+        //Инициализация БД
         public static void InitializeDatabase()
         {
             using (var connection = GetConnection())
             {
-                var createTableQuery = @"
-                CREATE TABLE IF NOT EXISTS Users (
+                var createUsersTable = @"CREATE TABLE IF NOT EXISTS Users (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Username TEXT NOT NULL UNIQUE,
                     Password TEXT NOT NULL
                 );";
 
-                using (var command = new SQLiteCommand(createTableQuery, connection))
+                var createProjectsTable = @"CREATE TABLE IF NOT EXISTS Projects (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    UserId INTEGER NOT NULL,
+                    Name TEXT NOT NULL,
+                    FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
+                );";
+
+                var createStatusesTable = @"CREATE TABLE IF NOT EXISTS TaskStatuses (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Name TEXT NOT NULL UNIQUE
+                );";
+
+                var createTasksTable = @"CREATE TABLE IF NOT EXISTS Tasks (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ProjectId INTEGER NOT NULL,
+                    StatusId INTEGER NOT NULL,
+                    Name TEXT NOT NULL,
+                    Description TEXT,
+                    IconPath TEXT,
+                    FOREIGN KEY (ProjectId) REFERENCES Projects(Id) ON DELETE CASCADE,
+                    FOREIGN KEY (StatusId) REFERENCES TaskStatuses(Id)
+                );";
+
+                using (var command = new SQLiteCommand(createUsersTable, connection))
                 {
+                    command.ExecuteNonQuery();
+                }
+                using (var command = new SQLiteCommand(createProjectsTable, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+                using (var command = new SQLiteCommand(createStatusesTable, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+                using (var command = new SQLiteCommand(createTasksTable, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            EnsureDefaultStatuses();
+        }
+
+        //Добавление стандартных статусов для доски
+        private static void EnsureDefaultStatuses()
+        {
+            using (var connection = GetConnection())
+            {
+                string[] statuses = { "Нет статуса", "Запланировано", "В работе", "Готово" };
+                foreach (var status in statuses)
+                {
+                    var query = "INSERT OR IGNORE INTO TaskStatuses (Name) VALUES (@Name);";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", status);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        //Метод доабвления проекта
+        public static void AddProject(int userId, string projectName)
+        {
+            using (var connection = GetConnection())
+            {
+                var query = "INSERT INTO Projects (UserId, Name) VALUES (@UserId, @Name)";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Name", projectName);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        
+        //Метод добавления задачи
+        public static void AddTask(int projectId, int statusId, string name, string description, string iconPath)
+        {
+            using (var connection = GetConnection())
+            {
+                var query = "INSERT INTO Tasks (ProjectId, StatusId, Name, Description, IconPath) VALUES (@ProjectId, @StatusId, @Name, @Description, @IconPath)";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProjectId", projectId);
+                    command.Parameters.AddWithValue("@StatusId", statusId);
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Description", description);
+                    command.Parameters.AddWithValue("@IconPath", iconPath);
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        // Метод для проверки существования пользователя
+        //Метод перемещения задачи
+        public static void MoveTask(int taskId, int newStatusId)
+        {
+            using (var connection = GetConnection())
+            {
+                var query = "UPDATE Tasks SET StatusId = @NewStatusId WHERE Id = @TaskId";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@NewStatusId", newStatusId);
+                    command.Parameters.AddWithValue("@TaskId", taskId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Метод проверки существования пользователя
         public static bool UserExists(string username)
         {
             using (var connection = GetConnection())
@@ -54,12 +154,10 @@ namespace TaskPulse.Classes
             }
         }
 
-        // Метод для добавления пользователя в БД с хэшированием пароля
+        //Метод добавления нового пользователя
         public static void AddUser(string username, string password)
         {
-            // Хэшируем пароль
             string hashedPassword = HashPassword(password);
-
             using (var connection = GetConnection())
             {
                 var query = "INSERT INTO Users (Username, Password) VALUES (@Username, @Password)";
@@ -72,7 +170,7 @@ namespace TaskPulse.Classes
             }
         }
 
-        // Метод для хэширования пароля с использованием SHA-256
+        //Метод хэширования пароля
         private static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -82,7 +180,7 @@ namespace TaskPulse.Classes
             }
         }
 
-        // Метод для получения хэшированного пароля (для проверки при логине)
+        //Метод получения пароля
         public static string GetHashedPassword(string username)
         {
             using (var connection = GetConnection())
@@ -97,29 +195,42 @@ namespace TaskPulse.Classes
             }
         }
 
-        // Метод для сравнения пароля с хэшированным значением из БД
+        //Метод для подтверждения пароля
         public static bool VerifyPassword(string enteredPassword, string storedHashedPassword)
         {
             string hashedEnteredPassword = HashPassword(enteredPassword);
             return hashedEnteredPassword == storedHashedPassword;
         }
-
-        // Метод для проверки подключения
-        public static bool TestConnection()
+        public static int GetUserIdFromLogin(string username)
         {
-            try
+            using (var connection = GetConnection())
             {
-                using (var connection = GetConnection())
+                var query = "SELECT Id FROM Users WHERE Username = @Username";
+                using (var command = new SQLiteCommand(query, connection))
                 {
-                    connection.Open();
-                    return true;
+                    command.Parameters.AddWithValue("@Username", username);
+                    var result = command.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : 0; // Возвращает 0, если пользователя не найдено
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка подключения: {ex.Message}");
-                return false;
-            }
+        }
+        public static void SaveUserSession(int userId)
+        {
+            Properties.Settings.Default.UserId = userId;
+            Properties.Settings.Default.Save();
+        }
+
+        public static int? GetSavedUserSession()
+        {
+            int userId = Properties.Settings.Default.UserId;
+            return userId > 0 ? userId : (int?)null;
+        }
+
+        public static void ClearUserSession()
+        {
+            Properties.Settings.Default.UserId = 0;
+            Properties.Settings.Default.Save();
         }
     }
 }
+

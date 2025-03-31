@@ -33,7 +33,7 @@ namespace TaskPulse.Classes
         public static RegistrControl RegistrControl = new () { DataContext = RegistControlViewModel };
         public static AuthControl AuthControl = new () { DataContext = AuthControlViewModel };
 
-        public static DashBoardControl DashBoardControl;
+        public static DashBoardControl DashBoardControl = new DashBoardControl() { DataContext = DashBoardViewModel };
         public static TasksUserControl TasksUserControl;
         public static ProjectsUserControl ProjectsUserControl;
         public static AccountUserControl AccountUserControl;

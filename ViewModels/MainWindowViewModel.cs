@@ -22,11 +22,15 @@ namespace TaskPulse.ViewModels
         public BaseButtonManager ButtonAccount { get; set; } = new ButtonAccount();
         public MainWindowViewModel()
         {
+            // Устанавливаем начальные значения
+            CurrentView = ViewModelHelper.DashBoardControl; // Показываем DashBoard при старте
+            ActiveButton = ButtonDashboard; // Активируем кнопку DashBoard
+
             DashBoardLoadCommand = new RelayCommand(ExecuteDashBoardLoad, CanExecuteDashBoardLoad);
             TasksLoadCommand = new RelayCommand(ExecuteTasksBoardLoad, CanExecuteTasksBoardLoad);
             ProjectsLoadCommand = new RelayCommand(ExecuteProjectsLoad, CanExecuteProjectsLoad);
             AccountLoadCommand = new RelayCommand(ExecuteAccountLoad,CanExecuteAccountLoad);
-            LogoutCommand = new RelayCommand(ExecuteLogout, CanExecuteLogout);
+            LogoutCommand = new RelayCommand(ExecuteLogout, CanExecuteLogout);           
         }      
 
         private BaseButtonManager _activeButton;
@@ -43,7 +47,7 @@ namespace TaskPulse.ViewModels
                     // Активируем новую кнопку
                     _activeButton = value;
                     ActivateButton(_activeButton);
-                    OnPropertyChanged();
+                    
                 }
             }
         }
@@ -107,7 +111,7 @@ namespace TaskPulse.ViewModels
                 button.ButtonIcon = new Uri(defaultIconPath); // Дефолтная иконка
             }
         }
-
+       
         //Вызов Dashboard
         private void ExecuteDashBoardLoad(object parameter)
         {
@@ -173,6 +177,7 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteLogout(object parameter)
         {
+            DataBaseHelper.ClearUserSession();
             ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
         }
 
