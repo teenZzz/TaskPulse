@@ -18,6 +18,7 @@ namespace TaskPulse
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            DataBaseHelper.InitializeDatabase();
 
             int? savedUserId = DataBaseHelper.GetSavedUserSession();
             if (savedUserId.HasValue)
@@ -29,7 +30,7 @@ namespace TaskPulse
                 ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
             }
 
-            DataBaseHelper.InitializeDatabase();
+            
         }
     }
 
