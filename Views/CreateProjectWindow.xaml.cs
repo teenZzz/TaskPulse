@@ -23,5 +23,22 @@ namespace TaskPulse.Views
         {
             InitializeComponent();
         }
+
+        private void textProject_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            project.Focus();
+        }
+
+        private void project_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(project.Text) && project.Text.Length > 0)
+            {
+                textProject.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                textProject.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

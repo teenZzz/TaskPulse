@@ -15,12 +15,14 @@ namespace TaskPulse.Classes
     public static class ViewModelHelper
     {
         public static AuthModel AuthModel { get; set; } = new();
+        public static CreateProjectModel CreateProjectModel { get; set; } = new();
 
         public static AuthControlViewModel AuthControlViewModel { get; } = new();
         public static RegistControlViewModel RegistControlViewModel { get; } = new();
 
         public static AuthWindowViewModel AuthWindowViewModel { get; } = new();
         public static MainWindowViewModel MainWindowViewModel { get; } = new();
+        public static CreateProjectWindowViewModel CreateProjectWindowViewModel { get; } = new();
 
         public static DashBoardViewModel DashBoardViewModel { get; } = new();
         public static TasksViewModel TasksViewModel { get; } = new();
