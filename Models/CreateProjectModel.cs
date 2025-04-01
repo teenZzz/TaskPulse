@@ -8,6 +8,6 @@ namespace TaskPulse.Models
 {
     public class CreateProjectModel
     {
-        public string ProjectName { get; set; }
+        public string ProjectName { get; set; } = "Проект1";
     }
 }

@@ -43,7 +43,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
-                        <TextBlock x:Name="textProject" MouseDown="textProject_MouseDown" Text="Проект1" Style="{StaticResource textHint}"/>
+                        <TextBlock x:Name="textProject" MouseDown="textProject_MouseDown" Text="Название проекта" Style="{StaticResource textHint}"/>
                         <TextBox x:Name="project" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}" TextChanged="project_TextChanged" Style="{StaticResource textBox}"/>
                     </Grid>
                 </Border >
