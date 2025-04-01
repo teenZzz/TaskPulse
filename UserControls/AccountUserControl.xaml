@@ -24,5 +24,26 @@
                 <TextBlock Text="Настройки аккаунта" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <Border Margin="40 40 0 0" MaxWidth="1000" HorizontalAlignment="Left" Background="#FFFFFF" CornerRadius="16" MinHeight="100">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+                    </Border.Effect>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding }"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Telegram" FontSize="20" FontWeight="Bold" Margin="10"/>
+                            <TextBlock Text="Подключите telegram аккаунт, для получения уведомлений." FontSize="16"  Margin="10"/>
+                        </StackPanel>
+                        <Button Style="{StaticResource button_add}" VerticalAlignment="Center" Margin="10">
+                            <TextBlock Text="Подключить" Foreground="Black"/>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
