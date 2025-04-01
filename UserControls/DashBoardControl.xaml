@@ -21,7 +21,21 @@
             </Border.Effect>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
                 <TextBlock Text="Доска: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
-                <TextBlock Text="MyTask" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center">
+                    <ComboBox.Resources>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ComboBox.Resources>
+
+                </ComboBox>
+                
                 <Border CornerRadius="16" Margin="50 0 0 0">
                     <Border.Effect>
                         <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
