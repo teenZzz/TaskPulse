@@ -22,5 +22,27 @@ namespace TaskPulse.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private Uri _telegramIcon = new Uri("pack://application:,,,/Resources/telegram2.png");
+        public Uri TelegramIcon
+        {
+            get => _telegramIcon;
+            set
+            {
+                _telegramIcon = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Uri _linkIcon = new Uri("pack://application:,,,/Resources/link.png");
+        public Uri LinkIcon
+        {
+            get => _linkIcon;
+            set
+            {
+                _linkIcon = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

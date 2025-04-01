@@ -16,6 +16,7 @@
     <None Remove="Resources\dashboard_white.png" />
     <None Remove="Resources\files2x.png" />
     <None Remove="Resources\key.png" />
+    <None Remove="Resources\link.png" />
     <None Remove="Resources\lock.png" />
     <None Remove="Resources\logout.png" />
     <None Remove="Resources\logout_white.png" />
@@ -25,6 +26,8 @@
     <None Remove="Resources\settings2x.png" />
     <None Remove="Resources\tasks.png" />
     <None Remove="Resources\tasks_white.png" />
+    <None Remove="Resources\telegram.png" />
+    <None Remove="Resources\telegram2.png" />
     <None Remove="Resources\viewer2x.png" />
   </ItemGroup>
 
@@ -41,6 +44,7 @@
     <Resource Include="Resources\dashboard_white.png" />
     <Resource Include="Resources\files2x.png" />
     <Resource Include="Resources\key.png" />
+    <Resource Include="Resources\link.png" />
     <Resource Include="Resources\lock.png" />
     <Resource Include="Resources\logout.png" />
     <Resource Include="Resources\logout_white.png" />
@@ -50,6 +54,8 @@
     <Resource Include="Resources\settings2x.png" />
     <Resource Include="Resources\tasks.png" />
     <Resource Include="Resources\tasks_white.png" />
+    <Resource Include="Resources\telegram.png" />
+    <Resource Include="Resources\telegram2.png" />
     <Resource Include="Resources\viewer2x.png" />
   </ItemGroup>
 
