@@ -12,5 +12,16 @@ namespace TaskPulse.ViewModels
         {
             
         }
+
+        private Uri _filesIcon = new Uri("pack://application:,,,/Resources/files2x.png");
+        public Uri FilesIcon
+        {
+            get => _filesIcon;
+            set
+            {
+                _filesIcon = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

@@ -19,8 +19,8 @@
                 <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
             </Border.Effect>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Task: " FontSize="24" FontWeight="Bold"/>
-                <TextBlock Text="MyTask" FontSize="24" FontWeight="Bold"/>
+                <Image Source="{Binding ViewerIcon}" Width="48" Height="48" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                <TextBlock Text="Список задач" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>
