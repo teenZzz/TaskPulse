@@ -20,6 +20,7 @@ namespace TaskPulse.Classes
             _windowRegistry.Add("AuthWindow", new AuthWindow() { DataContext = ViewModelHelper.AuthWindowViewModel });
             _windowRegistry.Add("MainWindow", new MainWindow() { DataContext = ViewModelHelper.MainWindowViewModel });
             _windowRegistry.Add("CreateProjectWindow", new CreateProjectWindow() { DataContext= ViewModelHelper.CreateProjectWindowViewModel });
+            _windowRegistry.Add("CreateTaskWindow", new CreateTaskWindow() { DataContext = ViewModelHelper.CreateTaskWindowViewModel });
         }
 
         public void NavigateToWindow(string windowName)

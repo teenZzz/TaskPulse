@@ -35,7 +35,7 @@ namespace TaskPulse.ViewModels
         //Создание задачи
         private void ExecuteCreateTask(object parameter)
         {
-
+            ViewModelHelper.NavigationService.OpenModalWindow("CreateTaskWindow");
         }
         private bool CanExecuteCreateTask()
         {

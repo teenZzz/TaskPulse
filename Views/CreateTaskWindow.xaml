@@ -5,8 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskPulse.Views"
         mc:Ignorable="d"
-        Title="CreateTaskWindow" Height="450" Width="800">
+        Title="CreateTaskWindow" Height="450" Width="400" Background="Transparent" WindowStartupLocation="CenterScreen" >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+
+        <Border Panel.ZIndex="1">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Background="Transparent"  Margin="-10 -10">
+                    <Image Source="/Resources/close.png"  Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="0" CornerRadius="10 10 0 0" Background="#00A19A" >
+
+            <StackPanel VerticalAlignment="Center" Margin="0 10 0 0">
+                <TextBlock Text="Добавление задачи" Style="{StaticResource titleText}"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#00A19A">
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Введите название задачи" Style="{StaticResource normalText}"/>
+
+                <Border Background="White" BorderThickness="1" BorderBrush="#acb0af" Margin="0 5 0 70" CornerRadius="5" MaxWidth="200" MinWidth="100" >
+                    <Grid Margin="7 9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
+                        <TextBlock x:Name="textProject1"  Text="Название проекта" Style="{StaticResource textHint}"/>
+                        <TextBox x:Name="project1"   Style="{StaticResource textBox}"/>
+                    </Grid>
+                </Border >
+
+                <ComboBox Width="180" SelectedIndex="0" >
+                    <ComboBoxItem Content="Статус" IsEnabled="False" Foreground="Gray"/>
+                    <ComboBoxItem Content="Запланировано" Style="{DynamicResource PlannedItemStyle}"/>
+                    <ComboBoxItem Content="В работе" Style="{DynamicResource InProgressItemStyle}"/>
+                    <ComboBoxItem Content="Готово" Style="{DynamicResource DoneItemStyle}"/>
+                </ComboBox>
+
+
+                <Button Content="Добавить"  Style="{StaticResource mainbutton}" Background="White" Foreground="Black" Margin="0 10 0 -20 "/>
+            </StackPanel>
+        </Border>
+
+
     </Grid>
 </Window>

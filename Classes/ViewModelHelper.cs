@@ -26,6 +26,7 @@ namespace TaskPulse.Classes
         public static AuthWindowViewModel AuthWindowViewModel { get; } = new();
         public static MainWindowViewModel MainWindowViewModel { get; } = new();
         public static CreateProjectWindowViewModel CreateProjectWindowViewModel { get; } = new();
+        public static CreateTaskWindowViewModel CreateTaskWindowViewModel { get; } = new();
 
         //Создание VM для контролов основного окна
         public static DashBoardViewModel DashBoardViewModel { get; } = new();
