@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:TaskPulse.ViewModels"
              xmlns:local="clr-namespace:TaskPulse.UserControls"
+             UseLayoutRounding="True"
              mc:Ignorable="d"
-             Background="#F6F6F6"
+             Background="#F6F6F6"         
              d:DesignHeight="1080" d:DesignWidth="1500">
 
     <Grid d:DataContext="{d:DesignInstance Type=vm:AccountViewModel, IsDesignTimeCreatable=True}">
@@ -19,8 +20,8 @@
                 <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
             </Border.Effect>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Account: " FontSize="24" FontWeight="Bold"/>
-                <TextBlock Text="MyAccount" FontSize="24" FontWeight="Bold"/>
+                <Image Source="{Binding SettingsIcon}" Width="48" Height="48" VerticalAlignment="Center" Margin="0 5 5 0"/>
+                <TextBlock Text="Настройки аккаунта" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

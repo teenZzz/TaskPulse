@@ -19,8 +19,8 @@
                 <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
             </Border.Effect>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Project: " FontSize="24" FontWeight="Bold"/>
-                <TextBlock Text="MyProject" FontSize="24" FontWeight="Bold"/>
+                <Image Source="{Binding FilesIcon}" Width="48" Height="48" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                <TextBlock Text="Обзор проектов" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -12,5 +12,16 @@ namespace TaskPulse.ViewModels
         {
             
         }
+
+        private Uri _viewerIcon = new Uri("pack://application:,,,/Resources/viewer2x.png");
+        public Uri ViewerIcon
+        {
+            get => _viewerIcon;
+            set
+            {
+                _viewerIcon = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

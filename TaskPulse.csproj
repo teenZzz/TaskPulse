@@ -14,14 +14,18 @@
     <None Remove="Resources\close.png" />
     <None Remove="Resources\dashboard.png" />
     <None Remove="Resources\dashboard_white.png" />
+    <None Remove="Resources\files2x.png" />
     <None Remove="Resources\key.png" />
     <None Remove="Resources\lock.png" />
     <None Remove="Resources\logout.png" />
     <None Remove="Resources\logout_white.png" />
     <None Remove="Resources\projects.png" />
     <None Remove="Resources\projects_white.png" />
+    <None Remove="Resources\settings.png" />
+    <None Remove="Resources\settings2x.png" />
     <None Remove="Resources\tasks.png" />
     <None Remove="Resources\tasks_white.png" />
+    <None Remove="Resources\viewer2x.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,14 +39,18 @@
     <Resource Include="Resources\close.png" />
     <Resource Include="Resources\dashboard.png" />
     <Resource Include="Resources\dashboard_white.png" />
+    <Resource Include="Resources\files2x.png" />
     <Resource Include="Resources\key.png" />
     <Resource Include="Resources\lock.png" />
     <Resource Include="Resources\logout.png" />
     <Resource Include="Resources\logout_white.png" />
     <Resource Include="Resources\projects.png" />
     <Resource Include="Resources\projects_white.png" />
+    <Resource Include="Resources\settings.png" />
+    <Resource Include="Resources\settings2x.png" />
     <Resource Include="Resources\tasks.png" />
     <Resource Include="Resources\tasks_white.png" />
+    <Resource Include="Resources\viewer2x.png" />
   </ItemGroup>
 
   <ItemGroup>

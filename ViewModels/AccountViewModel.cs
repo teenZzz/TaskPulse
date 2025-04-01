@@ -12,5 +12,15 @@ namespace TaskPulse.ViewModels
         {
             
         }
+        private Uri _settingsIcon = new Uri("pack://application:,,,/Resources/settings2x.png");
+        public Uri SettingsIcon
+        {
+            get => _settingsIcon;
+            set
+            {
+                _settingsIcon = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

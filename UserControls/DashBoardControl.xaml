@@ -20,7 +20,8 @@
                 <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
             </Border.Effect>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
-                <TextBlock Text="Доска: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Image Source="{Binding }" Width="48" Height="48" VerticalAlignment="Center" Margin="0 5 5 0"/>
+                <TextBlock Text="Текущий проект: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
 
                 <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center">
                     <ComboBox.Resources>
