@@ -14,7 +14,13 @@ namespace TaskPulse.ConstList
             ERROR = "Ошибка",
 
             // Общие ошибки
-            FIELD_NOT_FILED = "Пожалуйста, заполните поле."
+            FIELD_NOT_FILED = "Пожалуйста, заполните поле.",
+
+
+            // Для Проверок
+            SUCCESSFULLY_COMPLETED = "Успешно!",
+            NOT_SUCCESSFULLY_COMPLETED = "Провально!"
+
             ;
 
     }

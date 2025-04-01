@@ -4,17 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskPulse.Views"
+        xmlns:vm="clr-namespace:TaskPulse.ViewModels"
         mc:Ignorable="d"
-        Title="CreateProjectWindow" Height="400" Width="350" Background="Transparent">
-    <Grid>
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Title="CreateProjectWindow" Height="400" Width="350" Background="Transparent" WindowStartupLocation="CenterScreen">
+    <Grid d:DataContext="{d:DesignInstance Type=vm:CreateProjectWindowViewModel, IsDesignTimeCreatable=True}">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" CornerRadius="10 10 0 0" Background="#00A19A">
+        <Border Panel.ZIndex="1">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Background="Transparent" Command="{Binding CloseCommand}" Margin="-10 -10">
+                    <Image Source="/Resources/close.png"  Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
+                </Button>
+            </StackPanel>
+        </Border>
 
-            <StackPanel VerticalAlignment="Center">
+
+        <Border Grid.Row="0" CornerRadius="10 10 0 0" Background="#00A19A" >
+
+            <StackPanel VerticalAlignment="Center" Margin="0 10 0 0">
                 <TextBlock Text="Создание проекта" Style="{StaticResource titleText}"/>
             </StackPanel>
         </Border>
@@ -32,11 +44,11 @@
                         </Grid.ColumnDefinitions>
                         <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
                         <TextBlock x:Name="textProject" MouseDown="textProject_MouseDown" Text="Проект1" Style="{StaticResource textHint}"/>
-                        <TextBox x:Name="project" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" TextChanged="project_TextChanged" Style="{StaticResource textBox}"/>
+                        <TextBox x:Name="project" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}" TextChanged="project_TextChanged" Style="{StaticResource textBox}"/>
                     </Grid>
                 </Border >
 
-                <Button Content="Войти" Command="{Binding AuthCommand}" Style="{StaticResource mainbutton}" Background="White" Foreground="Black" Margin="0 10 0 -20 "/>
+                <Button Content="Создать" Command="{Binding newProjectCommand}" Style="{StaticResource mainbutton}" Background="White" Foreground="Black" Margin="0 10 0 -20 "/>
             </StackPanel>
         </Border>
     </Grid>
