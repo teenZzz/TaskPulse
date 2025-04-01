@@ -36,9 +36,9 @@
                         <Image Source="{Binding TelegramIcon}" Width="48" Height="48" VerticalAlignment="Center" Margin="10 10 0 10"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Telegram" FontSize="20" FontWeight="Bold" Margin="10 10 10 0"/>
-                            <TextBlock Text="Подключите telegram аккаунт, для получения уведомлений." FontSize="16"  Margin="10 0 10 10"/>
+                            <TextBlock Text="Авторизируйте свой аккаунт в боте, для получения уведомлений." FontSize="16"  Margin="10 0 10 10"/>
                         </StackPanel>
-                        <Button Style="{StaticResource button_add}" VerticalAlignment="Center" Margin="10 10 10 10">
+                        <Button Style="{StaticResource button_add}" Command="{Binding OpenTelegram}" VerticalAlignment="Center" Margin="10 10 10 10">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Image Source="{Binding LinkIcon}" Width="21" Height="21" VerticalAlignment="Center" Margin="0 0 5 0"/>
                                 <TextBlock Text="Подключить" VerticalAlignment="Center"/>
