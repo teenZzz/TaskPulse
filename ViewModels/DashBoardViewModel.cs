@@ -13,11 +13,32 @@ namespace TaskPulse.ViewModels
     public class DashBoardViewModel : ViewModelBase
     {
         public ObservableCollection<string> TaskStatuses { get; set; }
+
+        private ObservableCollection<string> _projects;
+        public ObservableCollection<string> Projects
+        {
+            get => _projects;
+            set => SetProperty(ref _projects, value);
+        }
+
         public DashBoardViewModel()
         {
+            LoadProjects();
             TaskStatuses = new ObservableCollection<string>(DataBaseHelper.GetAllTaskStatuses());
             CreateProject = new RelayCommand(ExecuteCreateProject, CanExecuteCreateProject);
-            CreateTask = new RelayCommand(ExecuteCreateTask,CanExecuteCreateTask);
+            CreateTask = new RelayCommand(ExecuteCreateTask,CanExecuteCreateTask);        
+        }
+        private void LoadProjects()
+        {
+            int userId = DataBaseHelper.GetSavedUserSession() ?? 0;
+            if (userId > 0)
+            {
+                Projects = new ObservableCollection<string>(DataBaseHelper.GetUserProjects(userId));
+            }
+            else
+            {
+                Projects = new ObservableCollection<string>();
+            }
         }
         public ICommand CreateProject { get; }
         public ICommand CreateTask { get; }

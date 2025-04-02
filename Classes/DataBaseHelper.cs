@@ -189,6 +189,28 @@ namespace TaskPulse.Classes
             }
         }
 
+        //метод для выгрузки всех проектов
+        public static List<string> GetUserProjects(int userId)
+        {
+            List<string> projects = new List<string>();
+            using (var connection = GetConnection())
+            {
+                var query = "SELECT Name FROM Projects WHERE UserId = @UserId";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+            return projects;
+        }
+
         //Метод хэширования пароля
         private static string HashPassword(string password)
         {
