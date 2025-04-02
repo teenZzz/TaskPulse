@@ -37,16 +37,16 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
+                            <Image Source="/Resources/projects.png" Height="20" HorizontalAlignment="Right" Width="20"/>
                             <TextBlock x:Name="textProject" MouseDown="textProject_MouseDown"
                                        Text="Название проекта" Style="{StaticResource textHint}"/>
                             <TextBox x:Name="project" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"
-                                     TextChanged="project_TextChanged" Style="{StaticResource textBox}"/>
+                                     TextChanged="project_TextChanged" Style="{StaticResource textBox2}"/>
                         </Grid>
                     </Border>
 
                     <Button Content="Создать" FontSize="16" Command="{Binding newProjectCommand}"
-                            Style="{StaticResource navigationButtonDefault}" Width="200"/>
+                            Style="{StaticResource navigationButtonDefault}" Width="200" Foreground="#222222"/>
                 </StackPanel>
             </Border>
 

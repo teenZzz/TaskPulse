@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,29 @@ namespace TaskPulse.ViewModels
 {
     public class CreateTaskWindowViewModel : ViewModelBase
     {
+        private ObservableCollection<string> _taskStatuses;
+        public ObservableCollection<string> TaskStatuses
+        {
+            get => _taskStatuses;
+            set => SetProperty(ref _taskStatuses, value);
+        }
         public CreateTaskWindowViewModel() 
         {
+            LoadTaskStatuses();
             CloseCommand = new RelayCommand(ExecuteClose, () => true);
             newTaskCommand = new RelayCommand(ExecuteNewTask, () => true);
+        }
+        private void LoadTaskStatuses()
+        {
+            int userId = DataBaseHelper.GetSavedUserSession() ?? 0;
+            if (userId > 0)
+            {
+                TaskStatuses = new ObservableCollection<string>(DataBaseHelper.GetAllTaskStatuses());
+            }
+            else
+            {
+                TaskStatuses = new ObservableCollection<string>();
+            }
         }
 
         public string TaskName
