@@ -8,7 +8,7 @@ namespace TaskPulse.Models
 {
     public class CreateTaskModel
     {
-        public string TaskName { get; set; } = "Задача1";
+        public string TaskName { get; set; } = "";
         public string TaskDescription { get; set; } = string.Empty;
         public string TaskState { get; set; } = "Запланировано";
     }

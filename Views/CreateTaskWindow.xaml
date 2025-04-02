@@ -7,67 +7,64 @@
         xmlns:local="clr-namespace:TaskPulse.Views"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="CreateTaskWindow" Height="450" Width="400" Background="Transparent" WindowStartupLocation="CenterScreen" >
-    <Grid d:DataContext="{d:DesignInstance Type=vm:CreateTaskWindowViewModel, IsDesignTimeCreatable=True}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="8*"/>
-        </Grid.RowDefinitions>
+        Title="CreateTaskWindow" Height="500" Width="400" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" >
+    <Border BorderThickness="2" BorderBrush="#8A8A8A" CornerRadius="12" Background="Transparent" >
+        <Grid d:DataContext="{d:DesignInstance Type=vm:CreateTaskWindowViewModel, IsDesignTimeCreatable=True}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Border Panel.ZIndex="1">
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-                <Button Background="Transparent" Command="{Binding CloseCommand}" Margin="-10 -10">
-                    <Image Source="/Resources/close.png"  Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
-                </Button>
-            </StackPanel>
-        </Border>
+            <Border Panel.ZIndex="1">
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button Background="Transparent" Command="{Binding CloseCommand}" Margin="-10 -10">
+                        <Image Source="/Resources/close.png"  Panel.ZIndex="1"  Style="{StaticResource imgClose}"/>
+                    </Button>
+                </StackPanel>
+            </Border>
 
-        <Border Grid.Row="0" CornerRadius="10 10 0 0" Background="#00A19A" >
+            <Border Grid.Row="0" CornerRadius="10 10 0 0" Background="#00A19A" >
+                <StackPanel VerticalAlignment="Center" Margin="0 10 0 0">
+                    <TextBlock Text="Добавление задачи" Style="{StaticResource titleText}"/>
+                </StackPanel>
+            </Border>
 
-            <StackPanel VerticalAlignment="Center" Margin="0 10 0 0">
-                <TextBlock Text="Добавление задачи" Style="{StaticResource titleText}"/>
-            </StackPanel>
-        </Border>
+            <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#00A19A">
+                <StackPanel VerticalAlignment="Top" Background="Transparent">
+                    <TextBlock Text="Введите название задачи" Style="{StaticResource normalText}"/>
+                    <Border Background="White" BorderThickness="1" BorderBrush="#acb0af" Margin="0 5 0 10" CornerRadius="5" MaxWidth="200" MinWidth="100" >
+                        <Grid Margin="7 9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
+                            <TextBlock x:Name="textTask" MouseDown="textTask_MouseDown" Text="Название задачи"  Style="{StaticResource textHint}"/>
+                            <TextBox x:Name="task" Text="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}" TextChanged="task_TextChanged" Style="{StaticResource textBox}"/>
+                        </Grid>
+                    </Border >
 
-        <Border Grid.Row="1" CornerRadius="0 0 10 10" Background="#00A19A">
+                    <TextBlock Text="Выберите статус задачи" Style="{StaticResource normalText}" />
 
-            <StackPanel VerticalAlignment="Center" Margin="0 -40 0 0">
-                <TextBlock Text="Введите название задачи" Style="{StaticResource normalText}"/>
+                    <ComboBox Width="180" SelectedIndex="0" Margin="0 10 0 10" SelectedItem="{Binding TaskState, Mode=TwoWay}">
+                        <!--<ComboBoxItem Content="Статус" IsEnabled="False" Foreground="Gray"/> -->
+                        <ComboBoxItem Content="Запланировано" Style="{DynamicResource PlannedItemStyle}"/>
+                        <ComboBoxItem Content="В работе" Style="{DynamicResource InProgressItemStyle}"/>
+                        <ComboBoxItem Content="Готово" Style="{DynamicResource DoneItemStyle}"/>
+                    </ComboBox>
 
-                <Border Background="White" BorderThickness="1" BorderBrush="#acb0af" Margin="0 5 0 10" CornerRadius="5" MaxWidth="200" MinWidth="100" >
-                    <Grid Margin="7 9">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="/Resources/key.png" Height="20" HorizontalAlignment="Right" Width="20"/>
-                        <TextBlock x:Name="textTask" MouseDown="textTask_MouseDown" Text="Название задачи"  Style="{StaticResource textHint}"/>
-                        <TextBox x:Name="task" Text="{Binding TaskName, UpdateSourceTrigger=PropertyChanged}" TextChanged="task_TextChanged" Style="{StaticResource textBox}"/>
-                    </Grid>
-                </Border >
-
-                <TextBlock Text="Выберите статус задачи" Style="{StaticResource normalText}" />
-
-                <ComboBox Width="180" SelectedIndex="0" Margin="0 10 0 10" SelectedItem="{Binding TaskState, Mode=TwoWay}">
-                    <!--<ComboBoxItem Content="Статус" IsEnabled="False" Foreground="Gray"/> -->
-                    <ComboBoxItem Content="Запланировано" Style="{DynamicResource PlannedItemStyle}"/>
-                    <ComboBoxItem Content="В работе" Style="{DynamicResource InProgressItemStyle}"/>
-                    <ComboBoxItem Content="Готово" Style="{DynamicResource DoneItemStyle}"/>
-                </ComboBox>
-
-                <TextBlock Text="Описание к задачи" Style="{StaticResource normalText}"/>
-                <Border Background="White" BorderThickness="1" BorderBrush="#acb0af" Margin="0 5 0 20" CornerRadius="5" Width="300" Height="100" >
-                    <Grid Margin="7 9">
-                        <TextBlock x:Name="textDescription" MouseDown="textDescription_MouseDown"  Text="Описание" Style="{StaticResource textHint}" Margin="0"/>
-                        <TextBox x:Name="description" Text="{Binding TaskDescription, UpdateSourceTrigger=PropertyChanged}" TextChanged="description_TextChanged" Style="{StaticResource textBox}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  Margin="0,0,0,0"/>
-                    </Grid>
-                </Border >
+                    <TextBlock Text="Описание к задачи" Style="{StaticResource normalText}"/>
+                    <Border Background="White" BorderThickness="1" BorderBrush="#acb0af" Margin="0 5 0 20" CornerRadius="5" Width="300" Height="100" >
+                        <Grid Margin="7 9">
+                            <TextBlock x:Name="textDescription" MouseDown="textDescription_MouseDown"  Text="Описание" Style="{StaticResource textHint}" Margin="0"/>
+                            <TextBox x:Name="description" Text="{Binding TaskDescription, UpdateSourceTrigger=PropertyChanged}" TextChanged="description_TextChanged" Style="{StaticResource textBox}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  Margin="0,0,0,0"/>
+                        </Grid>
+                    </Border >
 
 
-                <Button Content="Добавить" Command="{Binding newTaskCommand}"  Style="{StaticResource mainbutton}" Background="White" Foreground="Black" Margin="0 0 0 -20 "/>
-            </StackPanel>
-        </Border>
-
-
-    </Grid>
+                    <Button Content="Добавить" Command="{Binding newTaskCommand}"  Style="{StaticResource mainbutton}" Background="White" Foreground="Black" Margin="0 0 0 -20 "/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TaskPulse.Classes;
+using TaskPulse.ViewModels;
 
 namespace TaskPulse.Views
 {
@@ -24,6 +26,13 @@ namespace TaskPulse.Views
             InitializeComponent();
         }
 
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (DataContext is CreateProjectWindowViewModel viewModel)
+            {
+                viewModel.CloseCommand.Execute(null); // Выполнить команду
+            }
+        }
         private void textProject_MouseDown(object sender, MouseButtonEventArgs e)
         {
             project.Focus();
