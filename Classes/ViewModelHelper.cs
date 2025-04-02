@@ -55,11 +55,13 @@ namespace TaskPulse.Classes
             //Модели
             AuthModel = new ();
             CreateProjectModel = new();
+            CreateTaskModel = new();
 
             //Окна
             AuthWindowViewModel = new();
             MainWindowViewModel = new();
             CreateProjectWindowViewModel = new();
+            CreateTaskWindowViewModel = new();
 
             //Контролы VM авторизации
             AuthControlViewModel = new();
