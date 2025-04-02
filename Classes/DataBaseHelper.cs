@@ -50,7 +50,6 @@ namespace TaskPulse.Classes
                     StatusId INTEGER NOT NULL,
                     Name TEXT NOT NULL,
                     Description TEXT,
-                    IconPath TEXT,
                     FOREIGN KEY (ProjectId) REFERENCES Projects(Id) ON DELETE CASCADE,
                     FOREIGN KEY (StatusId) REFERENCES TaskStatuses(Id)
                 );";
@@ -92,6 +91,8 @@ namespace TaskPulse.Classes
                 }
             }
         }
+
+        //Метод вывода всех статусов задач
         public static List<string> GetAllTaskStatuses()
         {
             List<string> statuses = new List<string>();
@@ -110,7 +111,7 @@ namespace TaskPulse.Classes
             return statuses;
         }
 
-        //Метод доабвления проекта
+        //Метод добавления проекта
         public static void AddProject(int userId, string projectName)
         {
             using (var connection = GetConnection())
@@ -130,14 +131,13 @@ namespace TaskPulse.Classes
         {
             using (var connection = GetConnection())
             {
-                var query = "INSERT INTO Tasks (ProjectId, StatusId, Name, Description, IconPath) VALUES (@ProjectId, @StatusId, @Name, @Description, @IconPath)";
+                var query = "INSERT INTO Tasks (ProjectId, StatusId, Name, Description) VALUES (@ProjectId, @StatusId, @Name, @Description)";
                 using (var command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ProjectId", projectId);
                     command.Parameters.AddWithValue("@StatusId", statusId);
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Description", description);
-                    command.Parameters.AddWithValue("@IconPath", iconPath);
                     command.ExecuteNonQuery();
                 }
             }
