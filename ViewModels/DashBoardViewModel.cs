@@ -46,7 +46,7 @@ namespace TaskPulse.ViewModels
         //Создание проекта
         private void ExecuteCreateProject(object parameter)
         {
-            
+            ViewModelHelper.NavigationService.OpenModalWindow("CreateProjectWindow");
         }
         private bool CanExecuteCreateProject()
         {
@@ -56,7 +56,7 @@ namespace TaskPulse.ViewModels
         //Создание задачи
         private void ExecuteCreateTask(object parameter)
         {
-
+            ViewModelHelper.NavigationService.OpenModalWindow("CreateTaskWindow");
         }
         private bool CanExecuteCreateTask()
         {

@@ -420,5 +420,113 @@
             </Style.Triggers>
         </Style>
 
+        <!--    Комбобокс   -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{DynamicResource AppBackgroundColor}"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="8" Grid.ColumnSpan="2"/>
+
+                            <!-- Отображение выбранного элемента с цветом -->
+                            <TextBlock x:Name="ContentPresenter"
+                                Text="{TemplateBinding SelectionBoxItem}"
+                                Foreground="Black"
+                                VerticalAlignment="Center"
+                                Margin="5"
+                                FontSize="18"
+                            />    
+                            <ToggleButton x:Name="DropDownToggle"
+                                    Grid.Column="1"
+                                    Background="White"
+                                    BorderThickness="0"
+                                    HorizontalAlignment="Right"
+                                    IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                    <ToggleButton.Content>
+                                        <Path Data="M 0 0 L 8 8 L 16 0" Stroke="#00A19A" StrokeThickness="2"/>
+                                    </ToggleButton.Content>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" StaysOpen="False" IsOpen="{TemplateBinding IsDropDownOpen}" MaxWidth="180">
+                                <Border Background="White" CornerRadius="8" Padding="2">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding SelectedItem.Content, RelativeSource={RelativeSource Self}}" Value="Запланировано">
+                    <Setter Property="Background" Value="{DynamicResource PlannedColor}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedItem.Content, RelativeSource={RelativeSource Self}}" Value="В работе">
+                    <Setter Property="Background" Value="{DynamicResource InProgressColor}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SelectedItem.Content, RelativeSource={RelativeSource Self}}" Value="Готово">
+                    <Setter Property="Background" Value="{DynamicResource DoneColor}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Border" Padding="8,4" CornerRadius="4">
+                            <TextBlock x:Name="ItemText" Text="{TemplateBinding Content}" Foreground="Black"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#DDDDDD"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource Self}}"/>
+                                <Setter TargetName="ItemText" Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Цвета для статусов -->
+        <Style TargetType="ComboBoxItem" x:Key="PlannedItemStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource PlannedColor}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style TargetType="ComboBoxItem" x:Key="InProgressItemStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource InProgressColor}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style TargetType="ComboBoxItem" x:Key="DoneItemStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource DoneColor}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <!-- Определение ресурсов для динамических цветов -->
+        <SolidColorBrush x:Key="AppBackgroundColor" Color="White"/>
+        <SolidColorBrush x:Key="PlannedColor" Color="#0078D7"/>
+        <SolidColorBrush x:Key="InProgressColor" Color="#EAA000"/>
+        <SolidColorBrush x:Key="DoneColor" Color="#28A745"/>
+
+
+
     </Application.Resources>
 </Application>

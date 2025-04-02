@@ -19,6 +19,8 @@ namespace TaskPulse.Classes
             // Регистрируем окна
             _windowRegistry.Add("AuthWindow", new AuthWindow() { DataContext = ViewModelHelper.AuthWindowViewModel });
             _windowRegistry.Add("MainWindow", new MainWindow() { DataContext = ViewModelHelper.MainWindowViewModel });
+            _windowRegistry.Add("CreateProjectWindow", new CreateProjectWindow() { DataContext= ViewModelHelper.CreateProjectWindowViewModel });
+            _windowRegistry.Add("CreateTaskWindow", new CreateTaskWindow() { DataContext = ViewModelHelper.CreateTaskWindowViewModel });
         }
 
         public void NavigateToWindow(string windowName)
@@ -54,6 +56,47 @@ namespace TaskPulse.Classes
             else
             {
                 MessageBox.Show("Окно не найдено в реестре!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void OpenModalWindow(string windowName)
+        {
+            if (_windowRegistry.ContainsKey(windowName))
+            {
+                try
+                {
+                    // Получаем нужное окно из пула
+                    var window = _windowRegistry[windowName];
+                    // Если окно не было загружено, показываем его
+                    if (!window.IsLoaded || !window.IsVisible)
+                    {
+                        window.ShowDialog(); // Показываем окно
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при откритие окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void CloseModalWindow(string windowName)
+        {
+            if (_windowRegistry.ContainsKey(windowName))
+            {
+                try
+                {
+                    var window = _windowRegistry[windowName];
+                    if (window.IsLoaded || window.IsVisible)
+                    {
+                        window.Hide(); // Показываем окно
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при закритии окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
