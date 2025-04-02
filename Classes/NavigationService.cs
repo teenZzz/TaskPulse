@@ -72,11 +72,13 @@ namespace TaskPulse.Classes
                     {
                         window.ShowDialog(); // Показываем окно
                     }
+                    //_currentWindow = window;
+
                     if (window.IsLoaded || window.IsVisible)
                     {
                         window.Hide(); // Показываем окно
                     }
-                    //_currentWindow = window;
+
                 }
                 catch (Exception ex)
                 {

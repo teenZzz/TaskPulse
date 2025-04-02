@@ -17,6 +17,7 @@ namespace TaskPulse.Classes
         //Создание моделей
         public static AuthModel AuthModel { get; set; } = new();
         public static CreateProjectModel CreateProjectModel { get; set; } = new();
+        public static CreateTaskModel CreateTaskModel { get; set; } = new();
 
         //Создание VM для контролов авторизации
         public static AuthControlViewModel AuthControlViewModel { get; } = new();
@@ -25,6 +26,8 @@ namespace TaskPulse.Classes
         //Создание vm для окон
         public static AuthWindowViewModel AuthWindowViewModel { get; } = new();
         public static MainWindowViewModel MainWindowViewModel { get; } = new();
+
+        // Создание vm для модальных окон
         public static CreateProjectWindowViewModel CreateProjectWindowViewModel { get; } = new();
         public static CreateTaskWindowViewModel CreateTaskWindowViewModel { get; } = new();
 

@@ -23,5 +23,39 @@ namespace TaskPulse.Views
         {
             InitializeComponent();
         }
+
+        private void textTask_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            task.Focus();
+        }
+
+        private void task_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(task.Text) && task.Text.Length > 0)
+            {
+                textTask.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                textTask.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void textDescription_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            description.Focus();
+        }
+
+        private void description_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(description.Text) && description.Text.Length > 0)
+            {
+                textDescription.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                textDescription.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
