@@ -23,7 +23,7 @@
                 <Image Source="{Binding }" Width="48" Height="48" VerticalAlignment="Center" Margin="0 5 5 0"/>
                 <TextBlock Text="Текущий проект: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
 
-                <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center" ItemsSource="{Binding Projects}" >
+                <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="50" Background="White" BorderThickness="1" VerticalAlignment="Center" ItemsSource="{Binding Projects}" >
                     <ComboBox.Resources>
                         <Style TargetType="ComboBox">
                             <Setter Property="Background" Value="White"/>
