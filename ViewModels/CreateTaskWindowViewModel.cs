@@ -53,7 +53,7 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteClose(object parameter)
         {
-            ViewModelHelper.NavigationService.OpenModalWindow("CreateTaskWindow");
+            ViewModelHelper.NavigationService.CloseModalWindow("CreateTaskWindow");
         }
 
         private void ExecuteNewTask(object parameter)

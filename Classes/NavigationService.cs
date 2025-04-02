@@ -72,17 +72,30 @@ namespace TaskPulse.Classes
                     {
                         window.ShowDialog(); // Показываем окно
                     }
-                    //_currentWindow = window;
-
-                    if (window.IsLoaded || window.IsVisible)
-                    {
-                        window.Hide(); // Показываем окно
-                    }
 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ошибка при откритие окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void CloseModalWindow(string windowName)
+        {
+            if (_windowRegistry.ContainsKey(windowName))
+            {
+                try
+                {
+                    var window = _windowRegistry[windowName];
+                    if (window.IsLoaded || window.IsVisible)
+                    {
+                        window.Hide(); // Показываем окно
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при закритии окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

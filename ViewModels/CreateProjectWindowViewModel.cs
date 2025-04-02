@@ -33,7 +33,7 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteClose(object parameter)
         {
-            ViewModelHelper.NavigationService.OpenModalWindow("CreateProjectWindow");
+            ViewModelHelper.NavigationService.CloseModalWindow("CreateProjectWindow");
         }
 
         private void ExecuteNewProject(object parameter)
