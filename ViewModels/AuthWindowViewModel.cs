@@ -17,9 +17,10 @@ namespace TaskPulse.ViewModels
         
         public AuthWindowViewModel()
         {
+            var navService = App.NavigationService;
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
             RegistrCommand = new RelayCommand(ExecuteRegistr, CanExecuteRegistr);
-            CurrentView = ViewModelHelper.AuthControl;
+            CurrentView = navService.GetUserControl("AuthControl");
 
         }
 
@@ -44,15 +45,17 @@ namespace TaskPulse.ViewModels
         // Логика для авторизации
         private void ExecuteAuth(object parameter)
         {
+            var navService = App.NavigationService;
             // Логика для авторизации
-            CurrentView = ViewModelHelper.AuthControl;
+            CurrentView = navService.GetUserControl("AuthControl"); ;
         }
 
         // Логика для регистрации
         private void ExecuteRegistr(object parameter)
         {
+            var navService = App.NavigationService;
             // Логика для регистрации
-            CurrentView = ViewModelHelper.RegistrControl;
+            CurrentView = navService.GetUserControl("RegistrControl"); ;
         }
 
         // Условие, когда команда "Авторизоваться" может быть выполнена

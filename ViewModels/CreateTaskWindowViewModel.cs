@@ -8,11 +8,14 @@ using System.Windows;
 using System.Windows.Input;
 using TaskPulse.Classes;
 using TaskPulse.ConstList;
+using TaskPulse.Models;
+using TaskPulse.Views;
 
 namespace TaskPulse.ViewModels
 {
     public class CreateTaskWindowViewModel : ViewModelBase
     {
+        private CreateTaskModel _createTaskModel;
         private ObservableCollection<string> _taskStatuses;
         public ObservableCollection<string> TaskStatuses
         {
@@ -21,6 +24,7 @@ namespace TaskPulse.ViewModels
         }
         public CreateTaskWindowViewModel() 
         {
+            _createTaskModel = new CreateTaskModel();
             LoadTaskStatuses();
             CloseCommand = new RelayCommand(ExecuteClose, () => true);
             newTaskCommand = new RelayCommand(ExecuteNewTask, () => true);
@@ -37,33 +41,33 @@ namespace TaskPulse.ViewModels
                 TaskStatuses = new ObservableCollection<string>();
             }
         }
-
+        
         public string TaskName
         {
-            get => ViewModelHelper.CreateTaskModel.TaskName;
+            get => _createTaskModel.TaskName;
             set
             {
-                ViewModelHelper.CreateTaskModel.TaskName = value;
+                _createTaskModel.TaskName = value;
                 OnPropertyChanged();
             }
         }
 
         public string TaskDescription
         {
-            get => ViewModelHelper.CreateTaskModel.TaskDescription;
+            get => _createTaskModel.TaskDescription;
             set
             {
-                ViewModelHelper.CreateTaskModel.TaskDescription = value;
+                _createTaskModel.TaskDescription = value;
                 OnPropertyChanged();
             }
         }
 
         public string TaskState
         {
-            get => ViewModelHelper.CreateTaskModel.TaskState;
+            get => _createTaskModel.TaskState;
             set
             {
-                ViewModelHelper.CreateTaskModel.TaskState = value;
+                _createTaskModel.TaskState = value;
                 OnPropertyChanged();
             }
         }
@@ -73,7 +77,10 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteClose(object parameter)
         {
-            ViewModelHelper.NavigationService.CloseModalWindow("CreateTaskWindow");
+            var navService = App.NavigationService;
+            navService.CloseModalWindow();
+            TaskName = "";
+            TaskDescription = "";
         }
 
         private void ExecuteNewTask(object parameter)

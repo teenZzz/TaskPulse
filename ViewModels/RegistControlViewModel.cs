@@ -26,20 +26,20 @@ namespace TaskPulse.ViewModels
         
         public string Username
         {
-            get => ViewModelHelper.AuthModel.Username;
+            get => authModel.Username;
             set
             {
-                ViewModelHelper.AuthModel.Username = value;
+                authModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => ViewModelHelper.AuthModel.Password;
+            get => authModel.Password;
             set
             {
-                ViewModelHelper.AuthModel.Password = value;
+                authModel.Password = value;
                 OnPropertyChanged();
             }
         }
@@ -99,7 +99,8 @@ namespace TaskPulse.ViewModels
                 DataBaseHelper.AddUser(Username, Password);
                 int userId = DataBaseHelper.GetUserIdFromLogin(Username);
                 DataBaseHelper.SaveUserSession(userId);
-                ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
+                var navService = App.NavigationService;
+                navService.NavigateToWindow("MainWindow");
             }
             catch (Exception ex)
             {

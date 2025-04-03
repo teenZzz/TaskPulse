@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using TaskPulse.Classes;
+using TaskPulse.Interfaces;
 using TaskPulse.Views;
 
 namespace TaskPulse
@@ -15,19 +16,21 @@ namespace TaskPulse
         {
             
         }
+        public static NavigationService NavigationService { get; } = new NavigationService();
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
             DataBaseHelper.InitializeDatabase();
 
             int? savedUserId = DataBaseHelper.GetSavedUserSession();
             if (savedUserId.HasValue)
             {
-                ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
+                NavigationService.NavigateToWindow("MainWindow");
             }
             else
             {
-                ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+                NavigationService.NavigateToWindow("AuthWindow");
             }
 
             

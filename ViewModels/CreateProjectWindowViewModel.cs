@@ -7,23 +7,26 @@ using System.Windows;
 using System.Windows.Input;
 using TaskPulse.Classes;
 using TaskPulse.ConstList;
+using TaskPulse.Models;
 
 namespace TaskPulse.ViewModels
 {
     public class CreateProjectWindowViewModel : ViewModelBase
     {
+        private CreateProjectModel _createProjectModel;
         public CreateProjectWindowViewModel() 
         {
+            _createProjectModel = new CreateProjectModel();
             CloseCommand = new RelayCommand(ExecuteClose, () => true);
             newProjectCommand = new RelayCommand(ExecuteNewProject, () => true);
         }
 
         public string ProjectName
         {
-            get => ViewModelHelper.CreateProjectModel.ProjectName;
+            get => _createProjectModel.ProjectName;
             set
             {
-                ViewModelHelper.CreateProjectModel.ProjectName = value;
+                _createProjectModel.ProjectName = value;
                 OnPropertyChanged();
             }
         }
@@ -33,7 +36,9 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteClose(object parameter)
         {
-            ViewModelHelper.NavigationService.CloseModalWindow("CreateProjectWindow");
+            var navService = App.NavigationService;
+            navService.CloseModalWindow();
+            ProjectName = "";
         }
 
         private void ExecuteNewProject(object parameter)
@@ -43,7 +48,7 @@ namespace TaskPulse.ViewModels
                 MessageBox.Show(Errors.FIELD_NOT_FILED, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
+            DataBaseHelper.AddProject(Properties.Settings.Default.UserId, ProjectName);
             MessageBox.Show(Errors.SUCCESSFULLY_COMPLETED);
         }
 

@@ -22,8 +22,9 @@ namespace TaskPulse.ViewModels
         public BaseButtonManager ButtonAccount { get; set; } = new ButtonAccount();
         public MainWindowViewModel()
         {
+            var navService = App.NavigationService;
             // Устанавливаем начальные значения
-            CurrentView = ViewModelHelper.DashBoardControl; // Показываем DashBoard при старте
+            CurrentView = navService.GetUserControl("DashBoardControl"); // Показываем DashBoard при старте
             ActiveButton = ButtonDashboard; // Активируем кнопку DashBoard
 
             DashBoardLoadCommand = new RelayCommand(ExecuteDashBoardLoad, CanExecuteDashBoardLoad);
@@ -115,61 +116,61 @@ namespace TaskPulse.ViewModels
         //Вызов Dashboard
         private void ExecuteDashBoardLoad(object parameter)
         {
-            CurrentView = ViewModelHelper.DashBoardControl;
+            var navService = App.NavigationService;
+            // Устанавливаем начальные значения
+            CurrentView = navService.GetUserControl("DashBoardControl");
             ActiveButton = ButtonDashboard;
         }
 
         // Условие вывова Dashboard
         private bool CanExecuteDashBoardLoad()
         {
-            if (CurrentView != ViewModelHelper.DashBoardControl)
-                return true;
-            return false;
+            return true;
         }
 
         //Вызов Tasks
         private void ExecuteTasksBoardLoad(object parameter)
         {
-            CurrentView = ViewModelHelper.TasksUserControl;
+            var navService = App.NavigationService;
+            // Устанавливаем начальные значения
+            CurrentView = navService.GetUserControl("TasksUserControl");
             ActiveButton = ButtonTasks;
         }
 
         // Условие вывова Tasks
         private bool CanExecuteTasksBoardLoad()
         {
-            if (CurrentView != ViewModelHelper.TasksUserControl)
-                return true;
-            return false;
+            return true;
         }
 
         //Вызов Projects
         private void ExecuteProjectsLoad(object parameter)
         {
-            CurrentView = ViewModelHelper.ProjectsUserControl;
+            var navService = App.NavigationService;
+            // Устанавливаем начальные значения
+            CurrentView = navService.GetUserControl("ProjectsUserControl");
             ActiveButton = ButtonProjects;
         }
 
         // Условие вывова Projects
         private bool CanExecuteProjectsLoad()
         {
-            if (CurrentView != ViewModelHelper.ProjectsUserControl)
-                return true;
-            return false;
+            return true;
         }
 
         //Вызов Account
         private void ExecuteAccountLoad(object parameter)
         {
-            CurrentView = ViewModelHelper.AccountUserControl;
+            var navService = App.NavigationService;
+            // Устанавливаем начальные значения
+            CurrentView = navService.GetUserControl("AccountUserControl");
             ActiveButton = ButtonAccount;
         }
 
         // Условие вывова Dashboard
         private bool CanExecuteAccountLoad()
         {
-            if (CurrentView != ViewModelHelper.AccountUserControl)
-                return true;
-            return false;
+            return true;
         }
 
 
@@ -177,8 +178,9 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteLogout(object parameter)
         {
+            var navService = App.NavigationService;
             DataBaseHelper.ClearUserSession();
-            ViewModelHelper.NavigationService.NavigateToWindow("AuthWindow");
+            navService.NavigateToWindow("AuthWindow");
         }
 
         // Условие, когда команда "Авторизоваться" может быть выполнена

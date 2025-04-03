@@ -5,11 +5,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TaskPulse.Models;
 
 namespace TaskPulse.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
+        public AuthModel authModel = new AuthModel();
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

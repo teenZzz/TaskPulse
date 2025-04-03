@@ -13,27 +13,28 @@ using TaskPulse.Classes;
 namespace TaskPulse.ViewModels
 {
     public class AuthControlViewModel : ViewModelBase
-    {
+    {     
         public AuthControlViewModel() 
         {
+            
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
         }
         public string Username
         {
-            get => ViewModelHelper.AuthModel.Username;
+            get => authModel.Username;
             set
             {
-                ViewModelHelper.AuthModel.Username = value;
+                authModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => ViewModelHelper.AuthModel.Password;
+            get => authModel.Password;
             set
             {
-                ViewModelHelper.AuthModel.Password = value;
+                authModel.Password = value;
                 OnPropertyChanged();
             }
         }
@@ -69,8 +70,9 @@ namespace TaskPulse.ViewModels
 
             // Если логин успешный
             int userId = DataBaseHelper.GetUserIdFromLogin(Username);
-            DataBaseHelper.SaveUserSession(userId);           
-            ViewModelHelper.NavigationService.NavigateToWindow("MainWindow");
+            DataBaseHelper.SaveUserSession(userId);
+            var navService = App.NavigationService;
+            navService.NavigateToWindow("MainWindow");
         }
 
         private bool CanExecuteAuth()

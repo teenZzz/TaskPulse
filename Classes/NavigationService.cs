@@ -1,102 +1,130 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using TaskPulse.Interfaces;
+using TaskPulse.UserControls;
+using TaskPulse.ViewModels;
 using TaskPulse.Views;
 
 namespace TaskPulse.Classes
 {
     public class NavigationService : INavigationService
     {
-        private readonly Dictionary<string, Window> _windowRegistry = new();
+        private readonly Dictionary<string, Func<Window>> _windowFactories;
+        private readonly Dictionary<string, Func<UserControl>> _controlFactories;
         private Window _currentWindow;
+        private Window _currentModalWindow;
 
         public NavigationService()
         {
-            // Регистрируем окна
-            _windowRegistry.Add("AuthWindow", new AuthWindow() { DataContext = ViewModelHelper.AuthWindowViewModel });
-            _windowRegistry.Add("MainWindow", new MainWindow() { DataContext = ViewModelHelper.MainWindowViewModel });
-            _windowRegistry.Add("CreateProjectWindow", new CreateProjectWindow() { DataContext= ViewModelHelper.CreateProjectWindowViewModel });
-            _windowRegistry.Add("CreateTaskWindow", new CreateTaskWindow() { DataContext = ViewModelHelper.CreateTaskWindowViewModel });
+            // Инициализация фабрик окон
+            _windowFactories = new Dictionary<string, Func<Window>>()
+            {
+                ["AuthWindow"] = () => new AuthWindow() { DataContext = new AuthWindowViewModel() },
+                ["MainWindow"] = () => new MainWindow() { DataContext = new MainWindowViewModel() },
+                ["CreateProjectWindow"] = () => new CreateProjectWindow() { DataContext = new CreateProjectWindowViewModel() },
+                ["CreateTaskWindow"] = () => new CreateTaskWindow() { DataContext = new CreateTaskWindowViewModel() }
+            };
+
+            // Инициализация фабрик контролов
+            _controlFactories = new Dictionary<string, Func<UserControl>>()
+            {
+                ["AuthControl"] = () => new AuthControl() { DataContext = new AuthControlViewModel() },
+                ["RegistrControl"] = () => new RegistrControl() { DataContext = new RegistControlViewModel() },
+                ["DashBoardControl"] = () => new DashBoardControl() { DataContext = new DashBoardViewModel() },
+                ["TasksUserControl"] = () => new TasksUserControl() { DataContext = new TasksViewModel() },
+                ["ProjectsUserControl"] = () => new ProjectsUserControl() { DataContext = new ProjectsViewModel() },
+                ["AccountUserControl"] = () => new AccountUserControl() { DataContext = new AccountViewModel() }
+            };
+        }
+
+        // Метод для получения UserControl (для CurrentView)
+        public UserControl GetUserControl(string controlName)
+        {
+            if (_controlFactories.TryGetValue(controlName, out var factory))
+            {
+                return factory(); // Создаем новый экземпляр
+            }
+            throw new ArgumentException($"Control {controlName} not registered");
         }
 
         public void NavigateToWindow(string windowName)
         {
-            if (_windowRegistry.ContainsKey(windowName))
+            try
             {
-                try
+                if (!_windowFactories.TryGetValue(windowName, out var factory))
                 {
-                    // Получаем нужное окно из пула
-                    var window = _windowRegistry[windowName];
-                    // Если окно не было загружено, показываем его
-                    if (!window.IsVisible)
-                    {
-                        window.Show(); // Показываем окно
-                    }
-
-                    // Закрытие текущего окна, если оно открыто
-                    if (_currentWindow != null && _currentWindow.IsLoaded)
-                    {
-                        _currentWindow.Hide(); // Скрываем текущее окно
-                    }
-
-                    _currentWindow = window;
-
-                    
+                    throw new ArgumentException($"Window '{windowName}' is not registered");
                 }
-                catch (Exception ex)
-                {
-                    // Логируем ошибку или выводим сообщение пользователю
-                    MessageBox.Show($"Ошибка при переключении окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+
+                var newWindow = factory();
+                newWindow.Closed += (s, e) => _currentWindow = null; // Очищаем ссылку при закрытии
+
+                _currentWindow?.Close();
+                _currentWindow = newWindow;
+                _currentWindow.Show();
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Окно не найдено в реестре!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Логирование ошибки
+                Debug.WriteLine($"Navigation failed: {ex.Message}");
+                throw; // или показать MessageBox
             }
         }
 
         public void OpenModalWindow(string windowName)
         {
-            if (_windowRegistry.ContainsKey(windowName))
+            try
             {
-                try
+                if (!_windowFactories.TryGetValue(windowName, out var factory))
                 {
-                    // Получаем нужное окно из пула
-                    var window = _windowRegistry[windowName];
-                    // Если окно не было загружено, показываем его
-                    if (!window.IsLoaded || !window.IsVisible)
-                    {
-                        window.ShowDialog(); // Показываем окно
-                    }
+                    MessageBox.Show($"Окно '{windowName}' не найдено", "Ошибка",
+                                  MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
-                }
-                catch (Exception ex)
+                // Создаем новое окно
+                _currentModalWindow = factory();
+                _currentModalWindow.Owner = _currentWindow;
+                _currentModalWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                // Очищаем DataContext при закрытии
+                _currentModalWindow.Closed += (s, e) =>
                 {
-                    MessageBox.Show($"Ошибка при откритие окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    if (_currentModalWindow.DataContext is IDisposable disposableVm)
+                    {
+                        disposableVm.Dispose();
+                    }
+                    _currentModalWindow.DataContext = null;
+                    _currentModalWindow = null;
+                };
+
+                _currentModalWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка открытия: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public void CloseModalWindow(string windowName)
+        public void CloseModalWindow()
         {
-            if (_windowRegistry.ContainsKey(windowName))
+            try
             {
-                try
-                {
-                    var window = _windowRegistry[windowName];
-                    if (window.IsLoaded || window.IsVisible)
-                    {
-                        window.Hide(); // Показываем окно
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при закритии окна: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                _currentModalWindow?.Close();
+                _currentModalWindow = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка закрытия: {ex.Message}", "Ошибка",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
