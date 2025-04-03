@@ -43,7 +43,7 @@ namespace TaskPulse.ViewModels
             }
         }
 
-        public void OnProjectCreated()
+        private void OnProjectCreated()
         { 
             LoadProjects();
             Application.Current.Dispatcher.InvokeAsync(() =>
