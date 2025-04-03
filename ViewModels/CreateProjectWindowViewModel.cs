@@ -48,9 +48,15 @@ namespace TaskPulse.ViewModels
                 MessageBox.Show(Errors.FIELD_NOT_FILED, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            DataBaseHelper.AddProject(Properties.Settings.Default.UserId, ProjectName);
-            EventHelper.RaiseProjectCreated();
-
+            bool checkCreation = DataBaseHelper.CheckProjectInBD(Properties.Settings.Default.UserId, ProjectName);
+            if (checkCreation)
+            {
+                DataBaseHelper.AddProject(Properties.Settings.Default.UserId, ProjectName);
+                EventHelper.RaiseProjectCreated();
+                var navService = App.NavigationService;
+                navService.CloseModalWindow();
+            }
+            
         }
 
     }
