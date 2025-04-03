@@ -49,7 +49,6 @@ namespace TaskPulse.ViewModels
                 return;
             }
             DataBaseHelper.AddProject(Properties.Settings.Default.UserId, ProjectName);
-            MessageBox.Show(Errors.PROJECT_BEEN_CREATED);
             Classes.EventManager.RaiseProjectCreated();
 
         }

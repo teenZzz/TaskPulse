@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Windows;
+using TaskPulse.ConstList;
 
 namespace TaskPulse.Classes
 {
@@ -116,12 +118,29 @@ namespace TaskPulse.Classes
         {
             using (var connection = GetConnection())
             {
+                var queryCheck = "SELECT COUNT(1) FROM Projects WHERE UserId = @UserId and Name = @Name";
+                using (var command = new SQLiteCommand(queryCheck, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Name", projectName);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (result > 0)
+                    {
+                        MessageBox.Show(Errors.THE_PROJECT_EXISTS, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                }
+
                 var query = "INSERT INTO Projects (UserId, Name) VALUES (@UserId, @Name)";
                 using (var command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UserId", userId);
                     command.Parameters.AddWithValue("@Name", projectName);
                     command.ExecuteNonQuery();
+                    MessageBox.Show(Errors.PROJECT_BEEN_CREATED, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
             }
         }
