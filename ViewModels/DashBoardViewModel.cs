@@ -24,7 +24,6 @@ namespace TaskPulse.ViewModels
 
         public DashBoardViewModel()
         {
-            Classes.EventManager.ProjectCreated += OnProjectCreated; // хз думаю это можно убрать
             LoadProjects();
             TaskStatuses = new ObservableCollection<string>(DataBaseHelper.GetAllTaskStatuses());
             CreateProject = new RelayCommand(ExecuteCreateProject, CanExecuteCreateProject);
@@ -48,7 +47,7 @@ namespace TaskPulse.ViewModels
             LoadProjects();
             Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                Classes.EventManager.ProjectCreated -= OnProjectCreated; // здесь отписываюсь после обновления UI
+                Classes.EventHelper.ProjectCreated -= OnProjectCreated; // здесь отписываюсь после обновления UI
             });
         }
 
@@ -58,7 +57,7 @@ namespace TaskPulse.ViewModels
         //Создание проекта
         private void ExecuteCreateProject(object parameter)
         {
-            Classes.EventManager.ProjectCreated += OnProjectCreated; // здесь подписываюсь 
+            EventHelper.ProjectCreated += OnProjectCreated; // здесь подписываюсь 
             var navService = App.NavigationService;
             navService.OpenModalWindow("CreateProjectWindow");
         }

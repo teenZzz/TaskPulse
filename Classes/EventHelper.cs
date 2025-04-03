@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskPulse.Classes
 {
-    public static class EventManager
+    public static class EventHelper
     {
         public static event Action ProjectCreated;    // Событие создания проекта
 
