@@ -19,7 +19,11 @@ namespace TaskPulse.ConstList
 
             // Для Проверок
             SUCCESSFULLY_COMPLETED = "Успешно!",
-            NOT_SUCCESSFULLY_COMPLETED = "Провально!"
+            NOT_SUCCESSFULLY_COMPLETED = "Провально!",
+
+            // Запросы к БД
+            THE_PROJECT_EXISTS = "Проект с таким именем уже существует!",
+            PROJECT_BEEN_CREATED = "Проект успешно создался!"
 
             ;
 

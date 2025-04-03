@@ -23,6 +23,7 @@ namespace TaskPulse.ViewModels
 
         public DashBoardViewModel()
         {
+            //EventManager.ProjectCreated += OnProjectCreated;
             LoadProjects();
             TaskStatuses = new ObservableCollection<string>(DataBaseHelper.GetAllTaskStatuses());
             CreateProject = new RelayCommand(ExecuteCreateProject, CanExecuteCreateProject);
