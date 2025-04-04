@@ -23,7 +23,11 @@ namespace TaskPulse.ConstList
 
             // Запросы к БД
             THE_PROJECT_EXISTS = "Проект с таким именем уже существует!",
-            PROJECT_BEEN_CREATED = "Проект успешно создался!"
+            PROJECT_BEEN_CREATED = "Проект успешно создался!",
+
+            // Добавление новой задачи
+            NOT_PROJECT_SELECTED = "Не выбран проект для добавления задачи!",
+            THE_TASK_EXISTS = "Задача успешно добавлена!"
 
             ;
 

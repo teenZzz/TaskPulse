@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TaskPulse.Classes;
 
 namespace TaskPulse.UserControls
 {
@@ -23,6 +24,14 @@ namespace TaskPulse.UserControls
         public DashBoardControl()
         {
             InitializeComponent();
+        }
+
+        private void ProjectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (projectBox.SelectedItem is string selectedProject)
+            {
+                EventHelper.SetProjectName(selectedProject); // сохраняем выбранное имя
+            }
         }
     }
 }

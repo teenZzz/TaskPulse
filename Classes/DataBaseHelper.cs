@@ -128,7 +128,7 @@ namespace TaskPulse.Classes
             }
         }
 
-        //Метод проверки проекта в БД
+        //Метод проверки существования проекта в БД
         public static bool CheckProjectInBD(int userId, string projectName)
         {
             using (var connection = GetConnection())
@@ -150,9 +150,28 @@ namespace TaskPulse.Classes
                 }
             }
         }
-        
+
+        //Метод получения id Проекта
+        public static int GetProjectId(int userId, string projectName)
+        {
+            using (var connection = GetConnection())
+            {
+                var queryCheck = "SELECT Id FROM Projects WHERE UserId = @UserId and Name = @Name";
+                using (var command = new SQLiteCommand(queryCheck, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Name", projectName);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                        
+                    return result;
+
+                }
+            }
+        }
+
+
         //Метод добавления задачи
-        public static void AddTask(int projectId, int statusId, string name, string description, string iconPath)
+        public static void AddTask(int projectId, int statusId, string name, string description)
         {
             using (var connection = GetConnection())
             {
