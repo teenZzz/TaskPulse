@@ -203,6 +203,22 @@ namespace TaskPulse.Classes
             }
         }
 
+        //Метод получения id Статуса
+        public static int GetTaskId(int projectId, string nameTask)
+        {
+            using (var connection = GetConnection())
+            {
+                var query = "select Id from Tasks WHERE ProjectId = @ProjectId and Name = @Name";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProjectId", projectId);
+                    command.Parameters.AddWithValue("@Name", nameTask);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    return result;
+                }
+            }
+        }
+
         //Метод проверки существования пользователя
         public static bool UserExists(string username)
         {
