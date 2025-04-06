@@ -62,10 +62,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <controls:SwimlaneControl Grid.Column="0" Title="{Binding TaskStatuses[0]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="1" Title="{Binding TaskStatuses[1]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="2" Title="{Binding TaskStatuses[2]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="3" Title="{Binding TaskStatuses[3]}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="0" Title="{Binding TaskStatuses[0]}" ItemsSource="{Binding NotStartedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="1" Title="{Binding TaskStatuses[1]}" ItemsSource="{Binding PlannedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="2" Title="{Binding TaskStatuses[2]}" ItemsSource="{Binding InProgressTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="3" Title="{Binding TaskStatuses[3]}" ItemsSource="{Binding CompletedTasks}" Margin="0 0 0 0"/>
         </Grid>
     </Grid>
 </UserControl>

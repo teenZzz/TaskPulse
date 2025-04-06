@@ -117,6 +117,7 @@ namespace TaskPulse.ViewModels
                 int projectId = DataBaseHelper.GetProjectId(Properties.Settings.Default.UserId, projectName);
                 DataBaseHelper.AddTask(projectId, SelectedTaskIndex + 1, TaskName, TaskDescription);
                 MessageBox.Show(Errors.THE_TASK_EXISTS, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                EventHelper.GetTaskUpdate();
                 var navService = App.NavigationService;
                 navService.CloseModalWindow();
             }

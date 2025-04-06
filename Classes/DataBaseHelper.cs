@@ -8,6 +8,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Windows;
 using TaskPulse.ConstList;
+using TaskPulse.Models;
 
 namespace TaskPulse.Classes
 {
@@ -253,6 +254,33 @@ namespace TaskPulse.Classes
                 }
             }
             return projects;
+        }
+
+        // Метод для получения задач по id проекта
+        public static List<TaskModel> GetTasksByProject(int projectId)
+        {
+            List<TaskModel> tasks = new List<TaskModel>();
+            using (var connection = GetConnection())
+            {
+                var query = "SELECT Name, Description, StatusId FROM Tasks WHERE ProjectId = @ProjectId";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProjectId", projectId);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tasks.Add(new TaskModel
+                            {
+                                Name = reader.GetString(0),
+                                Description = reader.GetString(1),
+                                StatusId = reader.GetInt32(2)
+                            });
+                        }
+                    }
+                }
+            }
+            return tasks;
         }
 
         //Метод хэширования пароля

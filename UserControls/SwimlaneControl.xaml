@@ -12,8 +12,26 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=Title}" HorizontalAlignment="Center" FontSize="16" FontWeight="Normal"/>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
-                    <ListView>
-                        
+                    <ListView ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=ItemsSource}" Background="White">
+                        <!-- Определение DataTemplate для отображения задачи -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" Margin="5" >
+                                    <!-- Внешний контейнер с скругленными краями -->
+                                    <Border Background="#FFFFFF" CornerRadius="16" Margin="10" BorderBrush="Black" BorderThickness="1" MinWidth="350" MaxWidth="350" MaxHeight="200">
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <!-- Текстовое название задачи, выровненное по центру -->
+                                            <TextBlock Text="{Binding Name}" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+
+                                            <!-- Контейнер с описанием задачи с прокруткой -->
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxHeight="200">
+                                                <TextBox Text="{Binding Description}" FontSize="18" TextWrapping="Wrap" Margin="5" IsReadOnly="True" MaxWidth="300"/>
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                 </ScrollViewer>
             </StackPanel>

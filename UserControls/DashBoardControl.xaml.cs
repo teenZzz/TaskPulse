@@ -31,7 +31,9 @@ namespace TaskPulse.UserControls
             if (projectBox.SelectedItem is string selectedProject)
             {
                 EventHelper.SetProjectName(selectedProject); // сохраняем выбранное имя
+                EventHelper.GetTaskUpdate();
             }
+
         }
     }
 }

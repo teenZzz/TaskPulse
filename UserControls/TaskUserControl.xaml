@@ -18,6 +18,8 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" MinWidth="300" MinHeight="200">
                             <TextBlock Text="Name" FontSize="20" FontWeight="Bold" Margin="10 10 10 0" HorizontalAlignment="Center"/>
                             <TextBox Style="{StaticResource textBox2}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  Margin="0,20,0,0"/>
+                            <TextBox Text="{Binding Name}" FontSize="20" FontWeight="Bold" Margin="10 10 10 0" HorizontalAlignment="Center"/>
+                            <TextBox Text="{Binding Description}" FontSize="12" Style="{StaticResource textBox2}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  Margin="0,20,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>

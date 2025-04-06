@@ -9,6 +9,7 @@ namespace TaskPulse.Classes
     public static class EventHelper
     {
         public static event Action ProjectCreated;    // Событие создания проекта
+        public static event Action TaskUpdate;        // События для обновления задач
         private static string _currentProjectName;
 
         // Сохраняем выбранное имя проекта
@@ -26,6 +27,11 @@ namespace TaskPulse.Classes
         public static void RaiseProjectCreated()
         {
             ProjectCreated?.Invoke();
+        }
+
+        public static void GetTaskUpdate()
+        {
+            TaskUpdate?.Invoke();
         }
     }
 }
