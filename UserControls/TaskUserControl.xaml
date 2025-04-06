@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="TaskPulse.UserControls.TaskUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskPulse.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid>
+        <Grid >
+            <StackPanel Orientation="Vertical">
+                <Border Margin="40 40 0 0" MaxWidth="1000" HorizontalAlignment="Left" Background="#FFFFFF" CornerRadius="16" MinHeight="80">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+                    </Border.Effect>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" MinWidth="300" MinHeight="200">
+                            <TextBlock Text="Name" FontSize="20" FontWeight="Bold" Margin="10 10 10 0" HorizontalAlignment="Center"/>
+                            <TextBox Style="{StaticResource textBox2}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"  Margin="0,20,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
