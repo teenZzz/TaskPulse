@@ -48,15 +48,26 @@ namespace TaskPulse.Classes
         // Метод для получения UserControl (для CurrentView)
         public UserControl GetUserControl(string controlName)
         {
-            if (_createdControls.ContainsKey(controlName))
+            // Для этих контролов всегда создаём новый экземпляр
+            if (controlName == "AuthControl" || controlName == "RegistrControl")
             {
-                return _createdControls[controlName]; // Возвращаем существующий экземпляр
+                if (_controlFactories.TryGetValue(controlName, out var factory))
+                {
+                    return factory(); // каждый раз создаём заново
+                }
+                throw new ArgumentException($"Control {controlName} not registered");
             }
 
-            if (_controlFactories.TryGetValue(controlName, out var factory))
+            // Остальные кэшируем
+            if (_createdControls.ContainsKey(controlName))
             {
-                var control = factory();
-                _createdControls[controlName] = control; // Сохраняем созданный экземпляр для последующих вызовов
+                return _createdControls[controlName];
+            }
+
+            if (_controlFactories.TryGetValue(controlName, out var cachedFactory))
+            {
+                var control = cachedFactory();
+                _createdControls[controlName] = control;
                 return control;
             }
 
