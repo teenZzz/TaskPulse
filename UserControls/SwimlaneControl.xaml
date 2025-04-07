@@ -38,7 +38,7 @@
                                  MinWidth="350" MaxWidth="350" MaxHeight="200">
                                     <StackPanel Orientation="Vertical" Margin="10">
                                         <TextBlock Text="{Binding Name}" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
-                                        <TextBox Text="{Binding Description}" FontSize="18" TextWrapping="Wrap" Margin="5" IsReadOnly="True" MaxWidth="300" Height="180" VerticalScrollBarVisibility="Auto" />      
+                                        <TextBox Text="{Binding Description}" FontSize="18" TextWrapping="Wrap" BorderThickness="0" Margin="5" IsReadOnly="True" MaxWidth="300" MaxHeight="250" VerticalScrollBarVisibility="Auto" />      
                                     </StackPanel>
                                 </Border>
                             </StackPanel>
