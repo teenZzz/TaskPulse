@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        AllowsTransparency="True"
         MinHeight="800"
         MinWidth="800"
         Title="TaskPulse" Height="800" Width="1280" Background="Transparent">
