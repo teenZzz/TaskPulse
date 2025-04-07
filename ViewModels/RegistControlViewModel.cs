@@ -69,7 +69,7 @@ namespace TaskPulse.ViewModels
             var usernameRegex = new Regex(@"^[a-zA-Z0-9_]{3,20}$");
             if (!usernameRegex.IsMatch(Username))
             {
-                MessageBox.Show("Имя пользователя должно содержать только буквы, цифры и подчеркивания, и иметь длину от 3 до 20 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Имя пользователя должно содержать только латинские буквы, цифры и подчеркивания, и иметь длину от 3 до 20 символов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
