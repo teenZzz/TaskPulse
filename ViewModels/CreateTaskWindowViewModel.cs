@@ -72,6 +72,20 @@ namespace TaskPulse.ViewModels
             }
         }
 
+        private int _selectedTaskIndex;
+        public int SelectedTaskIndex
+        {
+            get => _selectedTaskIndex;
+            set
+            {
+                if (_selectedTaskIndex != value)
+                {
+                    _selectedTaskIndex = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ICommand newTaskCommand { get; }
         public ICommand CloseCommand { get; }
 
@@ -85,13 +99,33 @@ namespace TaskPulse.ViewModels
 
         private void ExecuteNewTask(object parameter)
         {
+            string projectName = "";
             if (string.IsNullOrEmpty(TaskName))
             {
                 MessageBox.Show(Errors.FIELD_NOT_FILED, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
-            MessageBox.Show(Errors.SUCCESSFULLY_COMPLETED);
+
+            projectName = EventHelper.GetProjectName();
+            if (string.IsNullOrEmpty(projectName))
+            {
+                MessageBox.Show(Errors.NOT_PROJECT_SELECTED, Errors.ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return;
+            }
+
+            try
+            {
+                int projectId = DataBaseHelper.GetProjectId(Properties.Settings.Default.UserId, projectName);
+                DataBaseHelper.AddTask(projectId, SelectedTaskIndex + 1, TaskName, TaskDescription);
+                EventHelper.GetTaskUpdate();
+                var navService = App.NavigationService;
+                navService.CloseModalWindow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex}", Errors.ERROR, MessageBoxButton.OK, MessageBoxImage.Error);
+                return ;
+            }
+
         }
     }
 }

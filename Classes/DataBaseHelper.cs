@@ -6,6 +6,9 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Windows;
+using TaskPulse.ConstList;
+using TaskPulse.Models;
 
 namespace TaskPulse.Classes
 {
@@ -125,9 +128,51 @@ namespace TaskPulse.Classes
                 }
             }
         }
-        
+
+        //Метод проверки существования проекта в БД
+        public static bool CheckProjectInBD(int userId, string projectName)
+        {
+            using (var connection = GetConnection())
+            {
+                var queryCheck = "SELECT COUNT(1) FROM Projects WHERE UserId = @UserId and Name = @Name";
+                using (var command = new SQLiteCommand(queryCheck, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Name", projectName);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+
+                    if (result > 0)
+                    {
+                        MessageBox.Show(Errors.THE_PROJECT_EXISTS, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return false;
+                    }
+                    else return true;
+
+                }
+            }
+        }
+
+        //Метод получения id Проекта
+        public static int GetProjectId(int userId, string projectName)
+        {
+            using (var connection = GetConnection())
+            {
+                var queryCheck = "SELECT Id FROM Projects WHERE UserId = @UserId and Name = @Name";
+                using (var command = new SQLiteCommand(queryCheck, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+                    command.Parameters.AddWithValue("@Name", projectName);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                        
+                    return result;
+
+                }
+            }
+        }
+
+
         //Метод добавления задачи
-        public static void AddTask(int projectId, int statusId, string name, string description, string iconPath)
+        public static void AddTask(int projectId, int statusId, string name, string description)
         {
             using (var connection = GetConnection())
             {
@@ -154,6 +199,22 @@ namespace TaskPulse.Classes
                     command.Parameters.AddWithValue("@NewStatusId", newStatusId);
                     command.Parameters.AddWithValue("@TaskId", taskId);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Метод получения id Статуса
+        public static int GetTaskId(int projectId, string nameTask)
+        {
+            using (var connection = GetConnection())
+            {
+                var query = "select Id from Tasks WHERE ProjectId = @ProjectId and Name = @Name";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProjectId", projectId);
+                    command.Parameters.AddWithValue("@Name", nameTask);
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    return result;
                 }
             }
         }
@@ -209,6 +270,33 @@ namespace TaskPulse.Classes
                 }
             }
             return projects;
+        }
+
+        // Метод для получения задач по id проекта
+        public static List<TaskModel> GetTasksByProject(int projectId)
+        {
+            List<TaskModel> tasks = new List<TaskModel>();
+            using (var connection = GetConnection())
+            {
+                var query = "SELECT Name, Description, StatusId FROM Tasks WHERE ProjectId = @ProjectId";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProjectId", projectId);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tasks.Add(new TaskModel
+                            {
+                                Name = reader.GetString(0),
+                                Description = reader.GetString(1),
+                                StatusId = reader.GetInt32(2)
+                            });
+                        }
+                    }
+                }
+            }
+            return tasks;
         }
 
         //Метод хэширования пароля

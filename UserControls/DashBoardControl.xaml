@@ -23,7 +23,7 @@
                 <Image Source="{Binding }" Width="48" Height="48" VerticalAlignment="Center" Margin="0 5 5 0"/>
                 <TextBlock Text="Текущий проект: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
 
-                <ComboBox Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center" ItemsSource="{Binding Projects}" >
+                <ComboBox x:Name="projectBox" Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center" ItemsSource="{Binding Projects}" SelectionChanged="ProjectComboBox_SelectionChanged">
                     <ComboBox.Resources>
                         <Style TargetType="ComboBox">
                             <Setter Property="Background" Value="White"/>
@@ -62,10 +62,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <controls:SwimlaneControl Grid.Column="0" Title="{Binding TaskStatuses[0]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="1" Title="{Binding TaskStatuses[1]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="2" Title="{Binding TaskStatuses[2]}" Margin="0 0 0 0"/>
-            <controls:SwimlaneControl Grid.Column="3" Title="{Binding TaskStatuses[3]}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="0" Title="{Binding TaskStatuses[0]}" ItemsSource="{Binding NotStartedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="1" Title="{Binding TaskStatuses[1]}" ItemsSource="{Binding PlannedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="2" Title="{Binding TaskStatuses[2]}" ItemsSource="{Binding InProgressTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="3" Title="{Binding TaskStatuses[3]}" ItemsSource="{Binding CompletedTasks}" Margin="0 0 0 0"/>
         </Grid>
     </Grid>
 </UserControl>

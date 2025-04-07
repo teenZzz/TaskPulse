@@ -17,6 +17,7 @@ namespace TaskPulse.Classes
     {
         private readonly Dictionary<string, Func<Window>> _windowFactories;
         private readonly Dictionary<string, Func<UserControl>> _controlFactories;
+        private readonly Dictionary<string, UserControl> _createdControls;
         private Window _currentWindow;
         private Window _currentModalWindow;
 
@@ -41,15 +42,24 @@ namespace TaskPulse.Classes
                 ["ProjectsUserControl"] = () => new ProjectsUserControl() { DataContext = new ProjectsViewModel() },
                 ["AccountUserControl"] = () => new AccountUserControl() { DataContext = new AccountViewModel() }
             };
+            _createdControls = new Dictionary<string, UserControl>();
         }
 
         // Метод для получения UserControl (для CurrentView)
         public UserControl GetUserControl(string controlName)
         {
+            if (_createdControls.ContainsKey(controlName))
+            {
+                return _createdControls[controlName]; // Возвращаем существующий экземпляр
+            }
+
             if (_controlFactories.TryGetValue(controlName, out var factory))
             {
-                return factory(); // Создаем новый экземпляр
+                var control = factory();
+                _createdControls[controlName] = control; // Сохраняем созданный экземпляр для последующих вызовов
+                return control;
             }
+
             throw new ArgumentException($"Control {controlName} not registered");
         }
 
