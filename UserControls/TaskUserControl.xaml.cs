@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TaskPulse.Classes;
 
-namespace TaskPulse.Views
+namespace TaskPulse.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для AuthWindow.xaml
+    /// Логика взаимодействия для TaskUserControl.xaml
     /// </summary>
-    public partial class AuthWindow : Window
+    public partial class TaskUserControl : UserControl
     {
-        public AuthWindow()
+        public TaskUserControl()
         {
             InitializeComponent();
-        }
-        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

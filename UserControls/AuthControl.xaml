@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:TaskPulse.ViewModels"
              xmlns:local="clr-namespace:TaskPulse.UserControls"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <vm:AuthControlViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Border Background="#ffffff" Grid.Column="1" CornerRadius="0 10 10 0">
             <StackPanel VerticalAlignment="Center">

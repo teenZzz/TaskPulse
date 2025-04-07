@@ -12,15 +12,15 @@ using TaskPulse.UserControls;
 
 namespace TaskPulse.ViewModels
 {
-    public class AuthWindowViewModel : INotifyPropertyChanged
+    public class AuthWindowViewModel : ViewModelBase
     {
-        private RegistrControl _registrControl = new RegistrControl();
-        private AuthControl _authControl = new AuthControl();
+        
         public AuthWindowViewModel()
         {
+            var navService = App.NavigationService;
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
             RegistrCommand = new RelayCommand(ExecuteRegistr, CanExecuteRegistr);
-            CurrentView = _authControl;
+            CurrentView = navService.GetUserControl("AuthControl");
 
         }
 
@@ -45,15 +45,17 @@ namespace TaskPulse.ViewModels
         // Логика для авторизации
         private void ExecuteAuth(object parameter)
         {
+            var navService = App.NavigationService;
             // Логика для авторизации
-            CurrentView = _authControl;
+            CurrentView = navService.GetUserControl("AuthControl"); ;
         }
 
         // Логика для регистрации
         private void ExecuteRegistr(object parameter)
         {
+            var navService = App.NavigationService;
             // Логика для регистрации
-            CurrentView = _registrControl;
+            CurrentView = navService.GetUserControl("RegistrControl"); ;
         }
 
         // Условие, когда команда "Авторизоваться" может быть выполнена
@@ -68,15 +70,6 @@ namespace TaskPulse.ViewModels
         {
             // Для примера регистрация всегда доступна
             return true;
-        }
-
-        // Реализуем интерфейс INotifyPropertyChanged для обновления UI
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Метод для уведомления об изменении свойства
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

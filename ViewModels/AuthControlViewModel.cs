@@ -12,29 +12,29 @@ using TaskPulse.Classes;
 
 namespace TaskPulse.ViewModels
 {
-    public class AuthControlViewModel : INotifyPropertyChanged
-    {
-        private AuthModel _authModel = new AuthModel();
+    public class AuthControlViewModel : ViewModelBase
+    {     
         public AuthControlViewModel() 
         {
+            
             AuthCommand = new RelayCommand(ExecuteAuth, CanExecuteAuth);
         }
         public string Username
         {
-            get => _authModel.Username;
+            get => authModel.Username;
             set
             {
-                _authModel.Username = value;
+                authModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => _authModel.Password;
+            get => authModel.Password;
             set
             {
-                _authModel.Password = value;
+                authModel.Password = value;
                 OnPropertyChanged();
             }
         }
@@ -69,20 +69,15 @@ namespace TaskPulse.ViewModels
             }
 
             // Если логин успешный
-            MessageBox.Show("Авторизация прошла успешно!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            int userId = DataBaseHelper.GetUserIdFromLogin(Username);
+            DataBaseHelper.SaveUserSession(userId);
+            var navService = App.NavigationService;
+            navService.NavigateToWindow("MainWindow");
         }
 
         private bool CanExecuteAuth()
         {
             return true;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        }      
     }
 }

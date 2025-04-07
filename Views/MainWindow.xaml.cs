@@ -16,17 +16,18 @@ using TaskPulse.Classes;
 namespace TaskPulse.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AuthWindow.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class AuthWindow : Window
+    public partial class MainWindow : Window
     {
-        public AuthWindow()
+        public MainWindow()
         {
             InitializeComponent();
         }
-        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+
         }
     }
 }

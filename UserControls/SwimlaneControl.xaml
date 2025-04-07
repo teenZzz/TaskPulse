@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="TaskPulse.UserControls.SwimlaneControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaskPulse.UserControls"
+             mc:Ignorable="d" 
+             Background="#F6F6F6"
+             d:DesignHeight="500" d:DesignWidth="300">
+    <Grid>
+        <Border MinWidth="200" MinHeight="500" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Заголовок -->
+                    <RowDefinition Height="*"/>
+                    <!-- Список с прокруткой -->
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=Title}" 
+                    HorizontalAlignment="Center" FontSize="16" FontWeight="Normal" Margin="5" Grid.Row="0"/>
+
+                <ListView Grid.Row="1"
+                   ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=ItemsSource}" 
+                   AllowDrop="True" 
+                   Drop="ListView_Drop" 
+                   DragOver="ListView_DragOver" 
+                   Background="White"
+                   Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:SwimlaneControl}}, Path=Title}"
+                   ScrollViewer.VerticalScrollBarVisibility="Auto"
+                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="5" PreviewMouseLeftButtonDown="StackPanel_PreviewMouseLeftButtonDown">
+                                <Border Background="#FFFFFF" CornerRadius="16" Margin="2" BorderBrush="Black" BorderThickness="1"
+                                 MinWidth="350" MaxWidth="350" MaxHeight="200">
+                                    <StackPanel Orientation="Vertical" Margin="10">
+                                        <TextBlock Text="{Binding Name}" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="5"/>
+                                        <TextBox Text="{Binding Description}" FontSize="18" TextWrapping="Wrap" BorderThickness="0" Margin="5" IsReadOnly="True" MaxWidth="300" MaxHeight="250" VerticalScrollBarVisibility="Auto" />      
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="TaskPulse.UserControls.DashBoardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:TaskPulse.UserControls"
+             xmlns:vm="clr-namespace:TaskPulse.ViewModels"
+             xmlns:local="clr-namespace:TaskPulse.UserControls"
+             mc:Ignorable="d"
+             Background="#F6F6F6"
+             d:DesignHeight="1080" d:DesignWidth="1500">
+
+    <Grid d:DataContext="{d:DesignInstance Type=vm:DashBoardViewModel, IsDesignTimeCreatable=True}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MaxHeight="100" MinHeight="100"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Background="#FFFFFF" Panel.ZIndex="1">
+            <Border.Effect>
+                <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+                <Image Source="{Binding }" Width="48" Height="48" VerticalAlignment="Center" Margin="0 5 5 0"/>
+                <TextBlock Text="Текущий проект: " FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+
+                <ComboBox x:Name="projectBox" Template="{DynamicResource ComboBoxTemplate1}" Width="200" Height="40" Background="White" BorderThickness="1" VerticalAlignment="Center" ItemsSource="{Binding Projects}" SelectionChanged="ProjectComboBox_SelectionChanged">
+                    <ComboBox.Resources>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Padding" Value="10 8 0 0"/>
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ComboBox.Resources>
+                </ComboBox>
+                
+                <Border CornerRadius="16" Margin="50 0 0 0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+                    </Border.Effect>
+                    <Button Style="{StaticResource navigationButtonDefault}" Command="{Binding CreateProject}">
+                        <TextBlock Text="Создать проект" FontSize="16" FontWeight="Normal"/>
+                    </Button>
+                </Border>
+                <Border CornerRadius="16" Margin="50 0 0 0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="DarkGray" BlurRadius="8" ShadowDepth="1" Direction="315" Opacity="1"/>
+                    </Border.Effect>
+                    <Button Style="{StaticResource navigationButtonDefault}" Command="{Binding CreateTask}">
+                        <TextBlock Text="Создать задачу" FontSize="16" FontWeight="Normal"/>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <controls:SwimlaneControl Grid.Column="0" Title="{Binding TaskStatuses[0]}" ItemsSource="{Binding NotStartedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="1" Title="{Binding TaskStatuses[1]}" ItemsSource="{Binding PlannedTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="2" Title="{Binding TaskStatuses[2]}" ItemsSource="{Binding InProgressTasks}" Margin="0 0 0 0"/>
+            <controls:SwimlaneControl Grid.Column="3" Title="{Binding TaskStatuses[3]}" ItemsSource="{Binding CompletedTasks}" Margin="0 0 0 0"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -13,11 +13,11 @@ using System.Windows.Input;
 using TaskPulse.Classes;
 using TaskPulse.Models;
 
+
 namespace TaskPulse.ViewModels
 {
-    public class RegistControlViewModel : INotifyPropertyChanged
-    {
-        private AuthModel _authModel = new AuthModel();
+    public class RegistControlViewModel : ViewModelBase
+    {      
         private string _confirmPassword;
         public RegistControlViewModel() 
         {
@@ -26,20 +26,20 @@ namespace TaskPulse.ViewModels
         
         public string Username
         {
-            get => _authModel.Username;
+            get => authModel.Username;
             set
             {
-                _authModel.Username = value;
+                authModel.Username = value;
                 OnPropertyChanged();
             }
         }
 
         public string Password
         {
-            get => _authModel.Password;
+            get => authModel.Password;
             set
             {
-                _authModel.Password = value;
+                authModel.Password = value;
                 OnPropertyChanged();
             }
         }
@@ -97,7 +97,10 @@ namespace TaskPulse.ViewModels
             try
             {
                 DataBaseHelper.AddUser(Username, Password);
-                MessageBox.Show("Регистрация прошла успешно!\nМожете перейти на вкладку авторизации.", "Регистрация", MessageBoxButton.OK, MessageBoxImage.Information);              
+                int userId = DataBaseHelper.GetUserIdFromLogin(Username);
+                DataBaseHelper.SaveUserSession(userId);
+                var navService = App.NavigationService;
+                navService.NavigateToWindow("MainWindow");
             }
             catch (Exception ex)
             {
@@ -108,13 +111,6 @@ namespace TaskPulse.ViewModels
         private bool CanExecuteRegister()
         {
             return true;
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }
